@@ -80,8 +80,65 @@ const Sotr_disc = sequelize.define('Sotr_disc', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-Role.hasOne(User)
-User.belongsTo(Role)
-
 Sotrudnik.hasOne(User)
 User.belongsTo(Sotrudnik)
+
+Sotrudnik.hasMany(Doljnost)
+Doljnost.belongsTo(Sotrudnik)
+
+Podrazdelenie.hasMany(Doljnost)
+Doljnost.belongsTo(Podrazdelenie)
+
+Predpriyatie.hasMany(Sotrudnik)
+Sotrudnik.belongsTo(Predpriyatie)
+
+Sotrudnik.hasOne(Personal)
+Personal.belongsTo(Sotrudnik)
+
+Sotrudnik.hasOne(Korzina)
+Korzina.belongsTo(Sotrudnik)
+
+Korzina.hasOne(korz_disc)
+korz_disc.belongsTo(Korzina)
+
+korz_disc.hasMany(Discipline)
+Discipline.belongsTo(korz_disc)
+
+Sotrudnik.hasMany(Sotr_disc)  
+Sotr_disc.belongsTo(Sotrudnik)  
+
+Sotr_disc.hasMany(Exam) 
+Exam.belongsTo(Sotr_disc)  
+
+Discipline.hasMany(Sotr_disc)  
+Sotr_disc.belongsTo(Discipline)  
+
+Discipline.hasMany(Lesson)
+Lesson.belongsTo(Discipline)
+
+Prepod.hasOne(Discipline)
+Discipline.belongsTo(Prepod)
+
+Role.hasMany(User)
+User.belongsTo(Role)
+
+User.hasOne(Prepod)
+Prepod.belongsTo(User)
+
+
+module.exports = {
+    User,
+    Role,
+    Korzina,
+    korz_disc,
+    Prepod,
+    Exam,
+    Lesson,
+    Discipline,
+    Predpriyatie,
+    Doljnost,
+    Sotr_disc,
+    Personal,
+    Podrazdelenie,
+    Sotrudnik
+}
