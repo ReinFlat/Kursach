@@ -1,13 +1,17 @@
+import React from 'react';
+import { MDBFooter } from 'mdb-react-ui-kit';
+
 const Footer = () => {
-    return ( 
-        <footer class="footer mt-auto py-3 bg-light">
-            <div class="container">
-                <span class="text-muted">
-                    <a href="/" class="text-muted"> © 2022, АО «Курсы повышения квалификации» </a>
-                </span>
-            </div>
-        </footer>
-     );
+  return (
+    <MDBFooter bgColor='light' className='text-center text-lg-left'>
+      <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+        &copy; {new Date().getFullYear()} Copyright:{' '}
+        <a className='text-dark' href='/'>
+          LevelUp
+        </a>
+      </div>
+    </MDBFooter>
+  );
 }
  
 export default Footer;
