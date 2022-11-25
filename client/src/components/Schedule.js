@@ -1,4 +1,5 @@
 import {Container, Table} from 'react-bootstrap';
+import ScheduleItem from './ScheduleItem';
 
 const Schedule = () => {
     return ( 
@@ -15,10 +16,10 @@ const Schedule = () => {
                         <th>Пятница</th>
                     </tr>
                 </thead>
-                <tbody height={1000}>
+                <tbody>
                     <tr>
                         <td>9:45 - 11:20</td>
-                        <td></td>
+                        <td><ScheduleItem/></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -27,7 +28,7 @@ const Schedule = () => {
                     <tr>
                         <td>11:30 - 13:05</td>
                         <td></td>
-                        <td></td>
+                        <td><ScheduleItem/></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -38,12 +39,12 @@ const Schedule = () => {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td><ScheduleItem/></td>
                     </tr>
                     <tr>
                         <td>15:30 - 17:05</td>
                         <td></td>
-                        <td></td>
+                        <td><ScheduleItem/></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -53,7 +54,7 @@ const Schedule = () => {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td><ScheduleItem/></td>
                         <td></td>
                     </tr>
                 </tbody>

@@ -21,7 +21,8 @@ const NavBar = observer(() => {
                 {user.isAuth 
                 ?
                     <Nav className="ml-auto">
-                        <Nav.Link href="#features">Расписание</Nav.Link>
+                        <Nav.Link href="/signl">Записаться на занятие</Nav.Link>
+                        <Nav.Link href="/addl">Добавить занятие</Nav.Link>
                         <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => logOut()}
                             >Выйти
                         </Button>

@@ -1,8 +1,8 @@
 import { Card, Container, Form} from "react-bootstrap";
 import Button from 'react-bootstrap/Button'
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import { login } from "../http/userAPI";
-import { LOGIN_ROUTE, MAIN_ROUTE } from "../utils/consts";
+import { MAIN_ROUTE } from "../utils/consts";
 import { useContext, useState } from "react";
 import {observer} from "mobx-react-lite";
 import { Context } from "..";
@@ -10,8 +10,6 @@ import { Context } from "..";
 const Auth = observer(() => {
     const navigate = useNavigate()
     const {user} = useContext(Context)
-    const location = useLocation()
-    const isLogin = location.pathname === LOGIN_ROUTE
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
