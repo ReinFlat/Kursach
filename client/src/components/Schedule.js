@@ -1,7 +1,11 @@
+import { observer } from 'mobx-react-lite';
+import { useContext } from 'react';
 import {Container, Table} from 'react-bootstrap';
+import { Context } from '..';
 import ScheduleItem from './ScheduleItem';
 
-const Schedule = () => {
+const Schedule = observer(() => {
+    const {lesson} = useContext(Context)
     return ( 
         <Container>
             <h1 style={{marginTop: '10px'}} className="text-center">Запись на занятие</h1>
@@ -61,6 +65,6 @@ const Schedule = () => {
             </Table>
         </Container>
      );
-}
+});
  
 export default Schedule;
