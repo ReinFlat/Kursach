@@ -16,9 +16,9 @@ const Korzina = sequelize.define('korzina', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-const korz_disc = sequelize.define('korz_disc', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-})
+//const korz_disc = sequelize.define('korz_disc', {
+//    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+//})
 const Sotrudnik = sequelize.define('Sotrudnik', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Birth_date: {type: DataTypes.DATE, allowNull: false},
@@ -98,11 +98,15 @@ Personal.belongsTo(Sotrudnik)
 Sotrudnik.hasOne(Korzina)
 Korzina.belongsTo(Sotrudnik)
 
-Korzina.hasOne(korz_disc)
-korz_disc.belongsTo(Korzina)
 
-korz_disc.hasMany(Discipline)
-Discipline.belongsTo(korz_disc)
+Korzina.hasOne(Lesson)
+Lesson.belongsTo(Korzina)
+
+//Korzina.hasOne(korz_disc)
+//korz_disc.belongsTo(Korzina)
+
+//korz_disc.hasMany(Discipline)
+//Discipline.belongsTo(korz_disc)
 
 Sotrudnik.hasMany(Sotr_disc)  
 Sotr_disc.belongsTo(Sotrudnik)  
@@ -130,7 +134,6 @@ module.exports = {
     User,
     Role,
     Korzina,
-    korz_disc,
     Prepod,
     Exam,
     Lesson,

@@ -1,5 +1,5 @@
 const Router = require('express')
-const { Discipline, Lesson, Prepod, Sotrudnik } = require('../models/models')
+const { User, Exam, Discipline, Lesson, Prepod, Sotrudnik } = require('../models/models')
 const router = new Router()
 const DisciplineRouter = require('./DisciplineRouter')
 const ExamRouter = require('./ExamRouter')
