@@ -1,8 +1,8 @@
 import {makeAutoObservable} from "mobx"
 
-export default class UserStore {
+export default class UserStudy {
     constructor() {
-        this._isAuth = true
+        this._isAuth = false
         this._user = {}
         makeAutoObservable(this)
     }
