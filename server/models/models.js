@@ -26,7 +26,6 @@ const Sotrudnik = sequelize.define('Sotrudnik', {
     Staj: {type: DataTypes.INTEGER},
     Obrazovanie: {type: DataTypes.STRING},
     FIO: {type: DataTypes.STRING, allowNull: false},
-    NumUser: {type: DataTypes.INTEGER, unique: true},
 })
 
 const Predpriyatie = sequelize.define('Predpriyatie', {
@@ -55,7 +54,6 @@ const Podrazdelenie = sequelize.define('Podrazdelenie', {
 const Prepod = sequelize.define('Prepod', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     FIO: {type: DataTypes.STRING, allowNull: false},
-    NumUser: {type: DataTypes.INTEGER, unique: true},
 })
 
 const Discipline = sequelize.define('Discipline', {
