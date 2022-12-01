@@ -3,8 +3,8 @@ const ApiError = require('../error/ApiError');
 
 class PrepodController {
     async create(req, res) {
-        const {FIO, Num_User} = req.body
-        const Prepod = await Prepod.create({FIO, Num_User})
+        const {FIO} = req.body
+        const Prepod = await Prepod.create({FIO})
         return res.json(Prepod)
     }
 

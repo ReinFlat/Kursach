@@ -5,12 +5,9 @@ const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     login: {type: DataTypes.STRING, unique: true},
     password: {type: DataTypes.STRING},
-})
-
-const Role = sequelize.define('role', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     role: {type: DataTypes.STRING, defaultValue: 'Сотрудник'}
 })
+
 
 const Korzina = sequelize.define('korzina', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -93,10 +90,10 @@ Sotrudnik.belongsTo(Predpriyatie)
 Sotrudnik.hasOne(Personal)
 Personal.belongsTo(Sotrudnik)
 
-Sotrudnik.hasOne(Korzina)
-Korzina.belongsTo(Sotrudnik)
+User.hasOne(Korzina)
+Korzina.belongsTo(User)
 
-Korzina.hasOne(Lesson)
+Korzina.hasMany(Lesson)
 Lesson.belongsTo(Korzina)
 
 //Korzina.hasOne(korz_disc)
@@ -120,16 +117,12 @@ Lesson.belongsTo(Discipline)
 Prepod.hasOne(Discipline)
 Discipline.belongsTo(Prepod)
 
-Role.hasMany(User)
-User.belongsTo(Role)
-
 User.hasOne(Prepod)
 Prepod.belongsTo(User)
 
 
 module.exports = {
     User,
-    Role,
     Korzina,
     Prepod,
     Exam,

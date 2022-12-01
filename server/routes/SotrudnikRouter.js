@@ -4,8 +4,8 @@ const router = new Router()
 
 
 
-router.post('/', SotrudnikController.create)
-router.get('/', SotrudnikController.getAll)
+router.post('/SotrCreate', SotrudnikController.create)
+router.get('/SotrGet', SotrudnikController.getAll)
 
 
 module.exports = router
