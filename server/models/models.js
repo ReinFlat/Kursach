@@ -81,8 +81,8 @@ const Sotr_disc = sequelize.define('Sotr_disc', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-Sotrudnik.hasOne(User)
-User.belongsTo(Sotrudnik)
+User.hasOne(Sotrudnik)
+Sotrudnik.belongsTo(User)
 
 Sotrudnik.hasMany(Doljnost)
 Doljnost.belongsTo(Sotrudnik)
