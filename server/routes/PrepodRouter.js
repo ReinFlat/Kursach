@@ -4,8 +4,8 @@ const router = new Router()
 
 
 
-router.post('/', PrepodController.create)
-router.get('/', PrepodController.getAll)
+router.post('/PrepodCreate', PrepodController.create)
+router.get('/PrepodGet', PrepodController.getAll)
 
 
 module.exports = router
