@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom'
-import { authRoutes, publicRoutes } from '../routes';
+import { studentRoutes, teacherRoutes, adminRoutes, publicRoutes } from '../routes';
 import { MAIN_ROUTE } from '../utils/consts';
 import { Context } from '../index';
 
@@ -10,7 +10,13 @@ const AppRouter = () => {
     console.log(user)
     return ( 
         <Routes>
-            {user.isAuth && authRoutes.map(({path, Component}) =>
+            {user.isAuth && adminRoutes.map(({path, Component}) =>
+                <Route key={path} path={path} element={<Component/>} exact/>
+            )}
+            {user.role && teacherRoutes.map(({path, Component}) =>
+                <Route key={path} path={path} element={<Component/>} exact/>
+            )}
+            {user.isAuth && studentRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} element={<Component/>} exact/>
             )}
             {publicRoutes.map(({path, Component}) =>

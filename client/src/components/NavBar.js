@@ -5,7 +5,7 @@ import {Context} from "../index";
 import { useNavigate } from 'react-router-dom';
 import {LOGIN_ROUTE, MAIN_ROUTE } from '../utils/consts';
 
-const NavBar = observer(() => {
+const NavBar = observer(({users}) => {
     const {user} = useContext(Context)
     const navigate = useNavigate()
     

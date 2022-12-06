@@ -15,12 +15,20 @@ export const studentRoutes = [
     {
         path: SIGNL_ROUTE,
         Component: SignLesson
+    }
+]
+
+export const adminRoutes = [
+    {
+        path: SIGNL_ROUTE,
+        Component: SignLesson
     },
     {
         path: ADDL_ROUTE,
         Component: AddLesson
     }
 ]
+
 
 export const publicRoutes = [
     {
