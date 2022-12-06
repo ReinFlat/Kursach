@@ -9,14 +9,14 @@ const User = sequelize.define('user', {
 })
 
 
-const Korzina = sequelize.define('korzina', {
+const Basket = sequelize.define('Basket', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
 //const korz_disc = sequelize.define('korz_disc', {
 //    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 //})
-const Sotrudnik = sequelize.define('Sotrudnik', {
+const Student = sequelize.define('Student', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Birth_date: {type: DataTypes.DATE, allowNull: false},
     Staj: {type: DataTypes.INTEGER},
@@ -24,7 +24,7 @@ const Sotrudnik = sequelize.define('Sotrudnik', {
     FIO: {type: DataTypes.STRING, allowNull: false},
 })
 
-const Predpriyatie = sequelize.define('Predpriyatie', {
+const Company = sequelize.define('Company', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Name: {type: DataTypes.STRING, allowNull: false},
     Telephone: {type: DataTypes.INTEGER, allowNull: false},
@@ -37,17 +37,17 @@ const Personal = sequelize.define('Personal', {
     Passport: {type: DataTypes.INTEGER, allowNull: false},
 })
 
-const Doljnost = sequelize.define('Doljnost', {
+const Position = sequelize.define('Position', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Name_dolj: {type: DataTypes.STRING, allowNull: false},
 })
 
-const Podrazdelenie = sequelize.define('Podrazdelenie', {
+const Department = sequelize.define('Department', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     Name: {type: DataTypes.STRING, allowNull: false},
 })
 
-const Prepod = sequelize.define('Prepod', {
+const Teacher = sequelize.define('Teacher', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     FIO: {type: DataTypes.STRING, allowNull: false},
 })
@@ -75,35 +75,35 @@ const Sotr_disc = sequelize.define('Sotr_disc', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
 
-User.hasOne(Sotrudnik)
-Sotrudnik.belongsTo(User)
+User.hasOne(Student)
+Student.belongsTo(User)
 
-Sotrudnik.hasMany(Doljnost)
-Doljnost.belongsTo(Sotrudnik)
+Student.hasMany(Position)
+Position.belongsTo(Student)
 
-Podrazdelenie.hasMany(Doljnost)
-Doljnost.belongsTo(Podrazdelenie)
+Department.hasMany(Position)
+Position.belongsTo(Department)
 
-Predpriyatie.hasMany(Sotrudnik)
-Sotrudnik.belongsTo(Predpriyatie)
+Company.hasMany(Student)
+Student.belongsTo(Company)
 
-Sotrudnik.hasOne(Personal)
-Personal.belongsTo(Sotrudnik)
+Student.hasOne(Personal)
+Personal.belongsTo(Student)
 
-User.hasOne(Korzina)
-Korzina.belongsTo(User)
+User.hasOne(Basket)
+Basket.belongsTo(User)
 
-Korzina.hasMany(Lesson)
-Lesson.belongsTo(Korzina)
+Basket.hasMany(Lesson)
+Lesson.belongsTo(Basket)
 
-//Korzina.hasOne(korz_disc)
-//korz_disc.belongsTo(Korzina)
+//Basket.hasOne(korz_disc)
+//korz_disc.belongsTo(Basket)
 
 //korz_disc.hasMany(Discipline)
 //Discipline.belongsTo(korz_disc)
 
-Sotrudnik.hasMany(Sotr_disc)  
-Sotr_disc.belongsTo(Sotrudnik)  
+Student.hasMany(Sotr_disc)  
+Sotr_disc.belongsTo(Student)  
 
 Sotr_disc.hasMany(Exam) 
 Exam.belongsTo(Sotr_disc)  
@@ -114,24 +114,24 @@ Sotr_disc.belongsTo(Discipline)
 Discipline.hasMany(Lesson)
 Lesson.belongsTo(Discipline)
 
-Prepod.hasOne(Discipline)
-Discipline.belongsTo(Prepod)
+Teacher.hasOne(Discipline)
+Discipline.belongsTo(Teacher)
 
-User.hasOne(Prepod)
-Prepod.belongsTo(User)
+User.hasOne(Teacher)
+Teacher.belongsTo(User)
 
 
 module.exports = {
     User,
-    Korzina,
-    Prepod,
+    Basket,
+    Teacher,
     Exam,
     Lesson,
     Discipline,
-    Predpriyatie,
-    Doljnost,
+    Company,
+    Position,
     Sotr_disc,
     Personal,
-    Podrazdelenie,
-    Sotrudnik
+    Department,
+    Student
 }
