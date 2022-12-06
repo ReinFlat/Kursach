@@ -7,6 +7,7 @@ import AppRouter from "./components/AppRouter"
 import Footer from './components/Footer';
 import NavBar from './components/NavBar';
 import { check } from './http/userAPI';
+import jwt_decode from 'jwt-decode';
 
 const App = observer(() => {
   const {user} = useContext(Context)
@@ -17,7 +18,7 @@ const App = observer(() => {
       user.setUser(true)
       user.setIsAuth(true)
     }).finally(() => setLoading(false))
-  }, [])
+  }, []);
 
   if(loading) {
     return <Spinner animation={"grow"}/>

@@ -7,19 +7,18 @@ export default class UserStudy {
         makeAutoObservable(this)
     }
 
+    setUser(user) {
+        this._user = user
+    }
     setIsAuth(bool) {
         this._isAuth = bool
     }
-
-    setUser(user) {
-        this._user = user
+    
+    get user() {
+        return this._user
     }
 
     get isAuth() {
         return this._isAuth
-    }
-
-    get user() {
-        return this._user
     }
 }

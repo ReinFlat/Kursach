@@ -4,8 +4,9 @@ import React , {useContext} from 'react';
 import {Context} from "../index";
 import { useNavigate } from 'react-router-dom';
 import {LOGIN_ROUTE, MAIN_ROUTE } from '../utils/consts';
+import jwt_decode from 'jwt-decode';
 
-const NavBar = observer(({users}) => {
+const NavBar = observer(({}) => {
     const {user} = useContext(Context)
     const navigate = useNavigate()
     
@@ -15,15 +16,39 @@ const NavBar = observer(({users}) => {
         localStorage.setItem('token', null)
     }
 
+    if (user.isAuth===true) {
+        var token = localStorage.getItem('token');
+        var decoded = jwt_decode(token);
+        var role = decoded.role;
+    }
+
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand href={MAIN_ROUTE}>Повышение квалификации</Navbar.Brand>
                 {user.isAuth 
-                ?
+                ? 
+                    role==='ADMIN'
+                    ?
                     <Nav className="ml-auto">
                         <Nav.Link href="/signl">Записаться на занятие</Nav.Link>
                         <Nav.Link href="/addl">Добавить занятие</Nav.Link>
+                        <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => logOut()}
+                            >Выйти
+                        </Button>
+                    </Nav>
+                    :
+                    role==='TEACHER'
+                    ?
+                    <Nav className="ml-auto">
+                        <Nav.Link href="/addl">Добавить занятие</Nav.Link>
+                        <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => logOut()}
+                            >Выйти
+                        </Button>
+                    </Nav>
+                    :
+                    <Nav className="ml-auto">
+                        <Nav.Link href="/signl">Записаться на занятие</Nav.Link>
                         <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => logOut()}
                             >Выйти
                         </Button>
