@@ -9,7 +9,7 @@ const CarouselInfo = observer(() => {
     <Carousel variant='dark'>
       <Carousel.Item interval={1000}>
         <img
-          height={500}
+          height={800}
           className="d-block w-100"
           src={iwcf}
           alt="First slide"
@@ -21,7 +21,7 @@ const CarouselInfo = observer(() => {
       </Carousel.Item>
       <Carousel.Item interval={500}>
         <img
-          height={500}
+          height={800}
           className="d-block w-100"
           src={levelup}
           alt="Second slide"
@@ -33,7 +33,7 @@ const CarouselInfo = observer(() => {
       </Carousel.Item>
       <Carousel.Item>
         <img
-          height={500}
+          height={800}
           className="d-block w-100"
           src={safety}
           alt="Third slide"
