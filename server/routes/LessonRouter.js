@@ -4,8 +4,8 @@ const router = new Router()
 
 
 
-router.post('/', LessonController.create)
-router.get('/', LessonController.getAll)
+router.post('/LessonCreate', LessonController.create)
+router.get('/LessonGet', LessonController.getAll)
 
 
 module.exports = router
