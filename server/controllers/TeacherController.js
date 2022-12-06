@@ -4,13 +4,13 @@ const ApiError = require('../error/ApiError');
 class TeacherController {
     async create(req, res) {
         const {FIO} = req.body
-        const Teacher = await Teacher.create({FIO})
+        const teacher = await Teacher.create({FIO})
         return res.json(Teacher)
     }
 
     async getAll(req, res) {
-        const Teachers = await Teacher.findAll()
-        return res.json(Teachers)
+        const teachers = await Teacher.findAll()
+        return res.json(teachers)
     }
 
 }
