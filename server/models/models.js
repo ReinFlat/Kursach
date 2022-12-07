@@ -114,8 +114,8 @@ Sotr_disc.belongsTo(Discipline)
 Discipline.hasMany(Lesson)
 Lesson.belongsTo(Discipline)
 
-Teacher.hasOne(Discipline)
-Discipline.belongsTo(Teacher)
+Discipline.hasOne(Teacher)
+Teacher.belongsTo(Discipline)
 
 User.hasOne(Teacher)
 Teacher.belongsTo(User)
