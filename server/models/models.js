@@ -2,7 +2,7 @@ const sequelize = require('../db')
 const {DataTypes} = require('sequelize')
 
 const User = sequelize.define('user', {
-    userid: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     email: {type: DataTypes.STRING, unique: true},
     password: {type: DataTypes.STRING},
     role: {type: DataTypes.STRING, defaultValue: 'STUDENT'}
@@ -48,7 +48,7 @@ const Department = sequelize.define('Department', {
 })
 
 const Teacher = sequelize.define('Teacher', {
-    userid: {type: DataTypes.INTEGER, primaryKey: true},
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     FIO: {type: DataTypes.STRING, allowNull: false},
 })
 
@@ -114,8 +114,8 @@ Sotr_disc.belongsTo(Discipline)
 Discipline.hasMany(Lesson)
 Lesson.belongsTo(Discipline)
 
-Discipline.hasOne(Teacher)
-Teacher.belongsTo(Discipline)
+Teacher.hasOne(Discipline)
+Discipline.belongsTo(Teacher)
 
 User.hasOne(Teacher)
 Teacher.belongsTo(User)
