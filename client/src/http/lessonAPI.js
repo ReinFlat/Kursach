@@ -5,7 +5,7 @@ export const createLesson = async (lesson) => {
     return data
 }
 
-export const fetchLesson = async () => {
-    const {data} = await $host.get('api/lesson')
+export const fetchLesson = async (id) => {
+    const {data} = await $host.get('api/lesson/' + id)
     return data
 }

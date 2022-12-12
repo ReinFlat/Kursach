@@ -1,4 +1,5 @@
 import { Button, Card} from "react-bootstrap";
+import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 
 const ScheduleItem = ({lesson}) => {
     return ( 

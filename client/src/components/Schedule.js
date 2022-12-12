@@ -23,7 +23,11 @@ const Schedule = observer(() => {
                 <tbody>
                     <tr>
                         <td>9:45 - 11:20</td>
-                        <td><ScheduleItem/></td>
+                        <td>           
+                            {/* {lesson.lessons.map(lesson => 
+                                <ScheduleItem key={lesson.id} lesson={lesson}/>
+                            )} */}
+                        </td>
                         <td></td>
                         <td></td>
                         <td></td>

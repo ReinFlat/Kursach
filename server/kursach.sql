@@ -33,8 +33,8 @@ create TABLE positions(
 create TABLE companys(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    telephone INTEGER,
-    INN INTEGER 
+    telephone VARCHAR(255) NOT NULL,
+    INN VARCHAR(255) NOT NULL 
 );
 
 create TABLE students(
