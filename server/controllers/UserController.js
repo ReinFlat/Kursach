@@ -21,7 +21,7 @@ class UserController {
             return next(ApiError.badRequest('Некорректный email или password'))
         }
         const candidate = await db.query('SELECT email FROM users WHERE email = $1', [email])
-        console.log(candidate)
+        console.log(candidate.rows)
         if (candidate.rowCount !== 0 ) {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
