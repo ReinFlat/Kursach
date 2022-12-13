@@ -1,18 +1,18 @@
-const {Lesson} = require('../models/models')
 const ApiError = require('../error/ApiError');
+const db = require("../db")
 
 class LessonController {
     async create(req, res) {
-        const {Lesson_count, Date_lesson, Time_lesson} = req.body
-        const Lesson = await Lesson.create({Lesson_count, Date_lesson, Time_lesson})
-        return res.json(Lesson)
+        const {id, date_lesson, time_lesson, discipline_id} = req.body
+        const lessons = await db.query('INSERT INTO lessons (id, date_lesson, time_lesson, discipline_id) values($1, $2, $3, $4) RETURNING *', [id, date_lesson, time_lesson, discipline_id])
+        return res.json(teacher.rows)
     }
 
     async getAll(req, res) {
-        const Lessons = await Lesson.findAll()
-        return res.json(Lessons)
+        const lessons = await db.query('SELECT * FROM lessons')
+        return res.json(lessons.rows)
     }
 
 }
 
-module.exports = new LessonController()
+module.exports = new LessonController

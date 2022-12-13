@@ -1,20 +1,18 @@
 const Router = require('express')
-const { User, Exam, Discipline, Lesson, Teacher, Student } = require('../models/models')
 const router = new Router()
-const DisciplineRouter = require('./DisciplineRouter')
-const ExamRouter = require('./ExamRouter')
-const LessonRouter = require('./LessonRouter')
-const TeacherRouter = require('./TeacherRouter')
-const StudentRouter = require('./StudentRouter')
 const UserRouter = require('./UserRouter')
+const TeacherRouter = require('./TeacherRouter')
+const DisciplineRouter = require('./DisciplineRouter')
+const LessonRouter = require('./LessonRouter')
+const StudentRouter = require('./StudentRouter')
 
 
 router.use('/user', UserRouter)
-router.use('/Exam', ExamRouter)
-router.use('/Discipline', DisciplineRouter)
-router.use('/Lesson', LessonRouter)
-router.use('/Teacher', TeacherRouter)
-router.use('/Student', StudentRouter)
+router.use('/teacher', TeacherRouter)
+router.use('/discipline', DisciplineRouter)
+router.use('/lesson', LessonRouter)
+router.use('/student', StudentRouter)
+
 
 
 module.exports = router
