@@ -15,4 +15,4 @@ class ExamController {
 
 }
 
-module.exports = new TeacherController
+module.exports = new ExamController
