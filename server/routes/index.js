@@ -5,6 +5,7 @@ const TeacherRouter = require('./TeacherRouter')
 const DisciplineRouter = require('./DisciplineRouter')
 const LessonRouter = require('./LessonRouter')
 const StudentRouter = require('./StudentRouter')
+const ExamRouter = require('./ExamRouter')
 
 
 router.use('/user', UserRouter)
@@ -12,6 +13,7 @@ router.use('/teacher', TeacherRouter)
 router.use('/discipline', DisciplineRouter)
 router.use('/lesson', LessonRouter)
 router.use('/student', StudentRouter)
+router.use('/exam', ExamRouter)
 
 
 
