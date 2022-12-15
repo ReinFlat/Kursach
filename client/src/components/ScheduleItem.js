@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { Button, Card} from "react-bootstrap";
-import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 
 const ScheduleItem = ({lesson}) => {
-    const [ width, setWidth ] = useState(0);
-    const onChange = e => setWidth(e.target.value);
+    const [ width] = useState(0);
     const styles = { width: `${width}px` };
     let d = new Date(lesson.date_lesson);
-
 
     return ( 
             <Card bg="light" style={{styles}} className="card text-center">

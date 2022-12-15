@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {Container, Table} from 'react-bootstrap';
-import { Context } from '..';
 import ScheduleItem from './ScheduleItem';
 import {getAll} from "../http/lessonAPI";
 
 const Schedule = observer(() => {
-    const {lesson} = useContext(Context)
     const [lessons, setLessons] = useState([]);
 
     useEffect(() => {
@@ -35,47 +33,266 @@ const Schedule = observer(() => {
                         <td>           
                             {
                                 lessons.map(lesson => {
-                                    return lesson.time_lesson === '09:45:00' &&
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    const uslovie = (lesson.time_lesson === '09:45:00' && n===1);
+                                    return (uslovie &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> ))
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '09:45:00' && n===2) &&
                                     (<ScheduleItem key={lesson.id} lesson={lesson}/> )
                                 })
                             }
                         </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '09:45:00' && n===3) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '09:45:00' && n===4) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '09:45:00' && n===5) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
                     </tr>
                     <tr>
                         <td>11:30 - 13:05</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '11:30:00' && n===1) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '11:30:00' && n===2) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '11:30:00' && n===3) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '11:30:00' && n===4) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '11:30:00' && n===5) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
                     </tr>
                     <tr>
                         <td>13:45 - 15:20</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '13:45:00' && n===1) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '13:45:00' && n===2) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '13:45:00' && n===3) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '13:45:00' && n===4) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '13:45:00' && n===5) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
                     </tr>
                     <tr>
                         <td>15:30 - 17:05</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '15:30:00' && n===1) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '15:30:00' && n===2) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '15:30:00' && n===3) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '15:30:00' && n===4) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '15:30:00' && n===5) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
                     </tr>
                     <tr>
                         <td>17:15 - 18:50</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '17:15:00' && n===1) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '17:15:00' && n===2) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '17:15:00' && n===3) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '17:15:00' && n===4) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
+                        <td>
+                            {
+                                lessons.map(lesson => {
+                                    let d = new Date(lesson.date_lesson);
+                                    let n = d.getDay();
+                                    return (lesson.time_lesson === '17:15:00' && n===5) &&
+                                    (<ScheduleItem key={lesson.id} lesson={lesson}/> )
+                                })
+                            }
+                        </td>
                     </tr>
                 </tbody>
             </Table>
