@@ -10,8 +10,7 @@ class LessonController {
     }
 
     async getAll(req, res) {        
-        console.log('меня позвали')
-        const lessons = await db.query('SELECT * FROM lessons')
+        const lessons = await db.query('SELECT * FROM lessons JOIN disciplines ON lessons.discipline_id = disciplines.id JOIN teachers ON lessons.discipline_id = teachers.discipline_id')
         return res.json(lessons.rows)
     }
 

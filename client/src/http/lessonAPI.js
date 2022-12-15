@@ -9,4 +9,3 @@ export const getAll = async () => {
     const {data} = await $host.get('api/lesson/LessonGet');
     return data;
 }
-

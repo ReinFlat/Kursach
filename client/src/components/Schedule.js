@@ -34,9 +34,10 @@ const Schedule = observer(() => {
                         <td>9:45 - 11:20</td>
                         <td>           
                             {
-                                lessons.map(lesson => 
+                                lessons.map(lesson => {
+                                    return lesson.time_lesson === '09:45:00' &&
                                     (<ScheduleItem key={lesson.id} lesson={lesson}/> )
-                                )
+                                })
                             }
                         </td>
                         <td></td>
