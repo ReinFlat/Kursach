@@ -8,8 +8,9 @@ class TeacherController {
         return res.json(teacher.rows)
     }
 
-    async getAll(req, res) {
-        const teachers = await db.query('SELECT * FROM teachers')
+    async getOne(req, res) {
+        const {id} = req.params
+        const teachers = await db.query(`SELECT * FROM teachers JOIN disciplines ON teachers.discipline_id = disciplines.id WHERE ${id} = teachers.user_id`)
         return res.json(teachers.rows)
     }
 
