@@ -5,12 +5,22 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale} from  "react-datepicker";
 import ru from 'date-fns/locale/ru';
+import { createLesson } from "../http/lessonAPI";
 registerLocale('ru', ru)
 
 const LessonAdd = ({teacher}) => {
 
     const [startDate, setStartDate] = useState(new Date());
-    
+    const [time, setTime] = useState('');
+
+    const getData = () => {
+        createLesson({
+            date_lesson: startDate,
+            time_lesson: time,
+            discipline_id: teacher.discipline_id
+        })
+    };
+
     return ( 
         <Container
         className="d-flex justify-content-center align-items-center"
@@ -22,22 +32,22 @@ const LessonAdd = ({teacher}) => {
             
                 <Form className="mt-3 d-flex">
                     <Dropdown className="mt-2 mb-2">
-                        <Dropdown.Toggle>Выберите время</Dropdown.Toggle>
+                        <Dropdown.Toggle>{time || 'Выберите время'}</Dropdown.Toggle>
                         <Dropdown.Menu>
                             
-                            <Dropdown.Item>
+                            <Dropdown.Item onClick={() => setTime("09:45:00")}>
                                 9:45 - 11:20
                             </Dropdown.Item>
-                            <Dropdown.Item>
+                            <Dropdown.Item  onClick={() => setTime("11:30:00")}>
                                 11:30 - 13:05
                             </Dropdown.Item>
-                            <Dropdown.Item>
+                            <Dropdown.Item onClick={() => setTime("13:45:00")}>
                                 13:45 - 15:20
                             </Dropdown.Item>
-                            <Dropdown.Item>
+                            <Dropdown.Item onClick={() => setTime("15:30:00")}>
                                 15:30 - 17:05
                             </Dropdown.Item>
-                            <Dropdown.Item>
+                            <Dropdown.Item onClick={() => setTime("17:15:00")}>
                                 17:15 - 18:50
                             </Dropdown.Item>
                         </Dropdown.Menu>
@@ -56,7 +66,7 @@ const LessonAdd = ({teacher}) => {
                 />
                 <Form className="d-flex mt-4">
                     <DatePicker locale="ru" selected={startDate} onChange={(date) => setStartDate(date)} />
-                    <Button variant="success">Добавить</Button>
+                    <Button variant="success" onClick={() => getData()} >Добавить</Button>
                 </Form>
             </Card>
         </Container>

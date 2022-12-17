@@ -5,7 +5,7 @@ class LessonController {
 
     async create(req, res) {
         const {id, date_lesson, time_lesson, discipline_id} = req.body
-        const lessons = await db.query('INSERT INTO lessons (id, date_lesson, time_lesson, discipline_id) values($1, $2, $3, $4) RETURNING *', [id, date_lesson, time_lesson, discipline_id])
+        const lessons = await db.query('INSERT INTO lessons (date_lesson, time_lesson, discipline_id) values($1, $2, $3) RETURNING *', [date_lesson, time_lesson, discipline_id])
         return res.json(lessons.rows)
     }
 

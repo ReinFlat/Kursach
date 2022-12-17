@@ -23,6 +23,7 @@ const AddLesson = observer(() => {
 
     useEffect(() => {
 		getOne(decoded.id).then((data) => {
+            console.log(data);
 		setTeachers(data);
 		})
 	}, []);

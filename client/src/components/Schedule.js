@@ -9,6 +9,7 @@ const Schedule = observer(() => {
 
     useEffect(() => {
 		getAll().then((data) => {
+            console.log(data);
 		setLessons(data);
 		})
 	}, []);
