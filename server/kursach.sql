@@ -62,7 +62,9 @@ create TABLE exams(
     mark VARCHAR(255),
     date_exam DATE,
     time_exam TIME,
-    sotr_disc INTEGER NOT NULL
+    sotr_disc INTEGER NOT NULL,
+    user_id INTEGER NOT NULL
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 create TABLE marks(
