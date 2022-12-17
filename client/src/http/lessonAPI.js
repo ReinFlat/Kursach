@@ -9,3 +9,8 @@ export const getAll = async () => {
     const {data} = await $host.get('api/lesson/LessonGet');
     return data;
 }
+
+export const getOne = async (id) => {
+    const {data} = await $host.get('api/teacher/' + id);
+    return data;
+}

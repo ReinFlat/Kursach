@@ -5,7 +5,7 @@ const router = new Router()
 
 
 router.post('/DisciplineCreate', DisciplineController.create)
-router.get('/DisciplineGet', DisciplineController.getAll)
+router.get('/DisciplineGet', DisciplineController.getOne)
 
 
 module.exports = router

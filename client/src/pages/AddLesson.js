@@ -1,63 +1,39 @@
-import { useState } from "react";
-import { Button, Card, Container, Dropdown, Form} from "react-bootstrap";
-import DatePicker from 'react-datepicker';
+import { useContext, useEffect, useState } from "react";
+import {useParams} from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale} from  "react-datepicker";
 import ru from 'date-fns/locale/ru';
+import {getOne} from '../http/lessonAPI';
+import { Context } from '../index';
+import jwt_decode from 'jwt-decode';
+import LessonAdd from "../components/LessonAdd";
+import { observer } from "mobx-react-lite";
 registerLocale('ru', ru)
-const AddLesson = () => {
-    const [startDate, setStartDate] = useState(new Date());
+
+
+const AddLesson = observer(() => {
+    const [teachers, setTeachers] = useState([]);
+    const {id} = useParams();
+
+    const {user} = useContext(Context)
+    if (user.isAuth===true) {
+        var token = localStorage.getItem('token');
+        var decoded = jwt_decode(token);
+    }
+
+    useEffect(() => {
+		getOne(decoded.id).then((data) => {
+		setTeachers(data);
+		})
+	}, []);
+
     return ( 
-        <Container
-        className="d-flex justify-content-center align-items-center"
-        style={{height: window.innerHeight - 54}}>
-            <Card style={{width: 600}} className="p-5">
-            <h2 className="m-auto">Добавление занятия</h2>
-                <Form className="mt-3 d-flex">
-                    <Dropdown className="mt-2 mb-2">
-                        <Dropdown.Toggle>Выберите время</Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item>
-                                9:45 - 11:20
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                11:30 - 13:05
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                13:45 - 15:20
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                15:30 - 17:05
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                17:15 - 18:50
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown style={{marginLeft: 135}} className="mt-2 mb-2">
-                        <Dropdown.Toggle>Выберите дисциплину</Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item>
-                                Бурение очка
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                Безопасность анальных процессов
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Form>
-                <Form.Control
-                    className="mt-3"
-                    width={200}
-                    placeholder="Введите ФИО"
-                />
-                <Form className="d-flex mt-4">
-                    <DatePicker locale="ru" selected={startDate} onChange={(date) => setStartDate(date)} />
-                    <Button variant="success">Добавить</Button>
-                </Form>
-            </Card>
-        </Container>
-     );
-}
+        <div>
+            {teachers.map((teacher, i) =>
+                (<LessonAdd key={i} teacher={teacher}/>)
+            )}
+        </div>
+     )
+});
  
 export default AddLesson;

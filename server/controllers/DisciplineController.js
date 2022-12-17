@@ -8,7 +8,7 @@ class DisciplineController {
         return res.json(disciplines.rows)
     }
 
-    async getAll(req, res) {
+    async getOne(req, res) {
         const {id} = req.body
         const disciplines = await db.query(`SELECT * FROM disciplines WHERE ${id} = id`)
         return res.json(disciplines.rows)
