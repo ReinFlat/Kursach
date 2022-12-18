@@ -16,7 +16,6 @@ const Schedule = observer(() => {
 
     return ( 
         <Container>
-            <h1 style={{marginTop: '10px'}} className="text-center">Запись на занятие</h1>
             <Table style={{tableLayout: 'fixed', marginTop: '20px'}} striped bordered hover>
                 <thead>
                     <tr>

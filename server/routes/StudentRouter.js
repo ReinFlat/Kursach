@@ -5,7 +5,7 @@ const router = new Router()
 
 
 router.post('/StudCreate', StudentController.create)
-router.get('/StudGet', StudentController.getAll)
+router.post('/', StudentController.signOne)
 
 
 module.exports = router

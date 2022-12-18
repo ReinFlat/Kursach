@@ -2,3 +2,4 @@
  export const MAIN_ROUTE = '/'
  export const SIGNL_ROUTE = '/signl'
  export const ADDL_ROUTE = '/addl'
+ export const PROF_ROUTE = '/profile'

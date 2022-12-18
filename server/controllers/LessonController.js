@@ -7,6 +7,15 @@ class LessonController {
         const {id, date_lesson, time_lesson, discipline_id} = req.body
         let date = new Date()
         let lesson_date = new Date(date_lesson)
+        console.log(time_lesson)
+        if ( time_lesson === "") {
+            console.log('Не выбрано время занятия')
+            return next(ApiError.badRequest('Не выбрано время занятия'))
+        }
+        if ( lesson_date.getDay() >= 6) {
+            console.log('По субботам и воскресеньям занятий нет')
+            return next(ApiError.badRequest('По субботам и воскресеньям занятий нет'))
+        }
         if ( date.getTime() > lesson_date.getTime()) {
             console.log('Нельзя поставить занятие задним числом')
             return next(ApiError.badRequest('Нельзя поставить занятие задним числом'))

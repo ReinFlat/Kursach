@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import {useParams} from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale} from  "react-datepicker";
 import ru from 'date-fns/locale/ru';
@@ -13,7 +12,6 @@ registerLocale('ru', ru)
 
 const AddLesson = observer(() => {
     const [teachers, setTeachers] = useState([]);
-    const {id} = useParams();
 
     const {user} = useContext(Context)
     if (user.isAuth===true) {

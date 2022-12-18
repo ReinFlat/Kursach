@@ -1,12 +1,12 @@
-import {Navbar, Nav, Button, Container} from "react-bootstrap";
+import {Navbar, Nav, Button, Container, ButtonGroup} from "react-bootstrap";
 import { observer } from 'mobx-react-lite';
 import React , {useContext} from 'react';
 import {Context} from "../index";
 import { useNavigate } from 'react-router-dom';
-import {LOGIN_ROUTE, MAIN_ROUTE } from '../utils/consts';
+import {LOGIN_ROUTE, MAIN_ROUTE, PROF_ROUTE } from '../utils/consts';
 import jwt_decode from 'jwt-decode';
 
-const NavBar = observer(({}) => {
+const NavBar = observer(() => {
     const {user} = useContext(Context)
     const navigate = useNavigate()
     
@@ -33,25 +33,40 @@ const NavBar = observer(({}) => {
                     <Nav className="ml-auto">
                         <Nav.Link href="/signl">Записаться на занятие</Nav.Link>
                         <Nav.Link href="/addl">Добавить занятие</Nav.Link>
-                        <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => logOut()}
-                            >Выйти
-                        </Button>
+                        <ButtonGroup>
+                            <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => navigate(PROF_ROUTE)}>
+                                Личный кабинет
+                            </Button>
+                            <Button variant={"outline-light"} onClick={() => logOut()}
+                                >Выйти
+                            </Button>
+                        </ButtonGroup>
                     </Nav>
                     :
                     role==='TEACHER'
                     ?
                     <Nav className="ml-auto">
                         <Nav.Link href="/addl">Добавить занятие</Nav.Link>
-                        <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => logOut()}
-                            >Выйти
-                        </Button>
+                        <ButtonGroup>
+                            <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => navigate(PROF_ROUTE)}>
+                                Личный кабинет
+                            </Button>
+                            <Button variant={"outline-light"} onClick={() => logOut()}
+                                >Выйти
+                            </Button>
+                        </ButtonGroup>
                     </Nav>
                     :
                     <Nav className="ml-auto">
                         <Nav.Link href="/signl">Записаться на занятие</Nav.Link>
-                        <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => logOut()}
-                            >Выйти
-                        </Button>
+                        <ButtonGroup>
+                            <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => navigate(PROF_ROUTE)}>
+                                Личный кабинет
+                            </Button>
+                            <Button variant={"outline-light"} onClick={() => logOut()}
+                                >Выйти
+                            </Button>
+                        </ButtonGroup>
                     </Nav>
                 :
                     <Nav className="ml-auto">

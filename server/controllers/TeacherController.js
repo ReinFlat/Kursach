@@ -14,6 +14,12 @@ class TeacherController {
         return res.json(teachers.rows)
     }
 
+    async getCount(req, res) {
+        const {id} = req.params
+        const count = await db.query(`SELECT COUNT(*) FROM baskets WHERE baskets.lesson_id = ${id}`)
+        return res.json(count.rows)
+    }
+
 }
 
 module.exports = new TeacherController
