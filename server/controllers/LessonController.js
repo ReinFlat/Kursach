@@ -3,8 +3,20 @@ const db = require("../db")
 
 class LessonController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         const {id, date_lesson, time_lesson, discipline_id} = req.body
+        let date = new Date()
+        let lesson_date = new Date(date_lesson)
+        if ( date.getTime() > lesson_date.getTime()) {
+            console.log('Нельзя поставить занятие задним числом')
+            return next(ApiError.badRequest('Нельзя поставить занятие задним числом'))
+        }
+        const havelesson = await db.query('SELECT date_lesson FROM lessons WHERE date_lesson = $1', [date_lesson])
+        if (havelesson.rowCount !== 0 ) {
+            console.log('Это время занято другим занятием')
+            return next(ApiError.badRequest('Это время занято другим занятием'))
+        }
+        const deletelesson = await db.query('DELETE FROM lessons WHERE date_lesson < $1', [date])
         const lessons = await db.query('INSERT INTO lessons (date_lesson, time_lesson, discipline_id) values($1, $2, $3) RETURNING *', [date_lesson, time_lesson, discipline_id])
         return res.json(lessons.rows)
     }
