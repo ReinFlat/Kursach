@@ -25,13 +25,16 @@ class LessonController {
             console.log('Это время занято другим занятием')
             return next(ApiError.badRequest('Это время занято другим занятием'))
         }
-        const deletelesson = await db.query('DELETE FROM lessons WHERE date_lesson < $1', [date])
         const lessons = await db.query('INSERT INTO lessons (date_lesson, time_lesson, discipline_id) values($1, $2, $3) RETURNING *', [date_lesson, time_lesson, discipline_id])
         return res.json(lessons.rows)
     }
 
-    async getAll(req, res) {        
-        const lessons = await db.query('SELECT * FROM lessons JOIN disciplines ON lessons.discipline_id = disciplines.id JOIN teachers ON lessons.discipline_id = teachers.discipline_id')
+    async getAll(req, res) {     
+        let date = new Date()   
+        const lessons = await db.query(`SELECT * FROM lessons 
+                                        JOIN disciplines ON lessons.discipline_id = disciplines.id 
+                                        JOIN teachers ON lessons.discipline_id = teachers.discipline_id 
+                                        WHERE date_lesson > $1`,[date])
         return res.json(lessons.rows)
     }
 

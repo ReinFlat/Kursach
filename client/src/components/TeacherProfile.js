@@ -14,7 +14,7 @@ const TeacherProfile = ({teacher}) => {
 	}, []);
 
     return ( 
-        <Container style={{marginBottom: "300px"}}>
+        <Container style={{marginBottom: "500px"}}>
             <Card className="d-flex justify-content-center align-items-center">
                 <h1>{teacher.fio}</h1>
                 <h2>{teacher.discipline_name}</h2>

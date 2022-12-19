@@ -19,8 +19,3 @@ export const getCount = async (id) => {
     const {data} = await $host.get('api/teacher/count/' + id);
     return data;
 }
-
-export const signOne = async (basket) => {
-    const {data} = await $authHost.post('api/student/', basket);
-    return data;
-}

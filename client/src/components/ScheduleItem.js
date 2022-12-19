@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Button, Card} from "react-bootstrap";
-import { signOne } from "../http/lessonAPI";
+import { signOne } from "../http/studentAPI";
 import jwt_decode from 'jwt-decode';
 import { Context } from "..";
 
