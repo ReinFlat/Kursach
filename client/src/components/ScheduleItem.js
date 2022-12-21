@@ -27,7 +27,7 @@ const ScheduleItem = ({lesson}) => {
                 <Card.Header>{lesson.fio}</Card.Header>
                     <Card.Body>
                         <Card.Title>{lesson.discipline_name}</Card.Title>
-                        <Card.Text>{d.getDate()}/{d.getMonth()}/{d.getFullYear()}</Card.Text>
+                        <Card.Text>{d.getDate()}/{d.getMonth()+1}/{d.getFullYear()}</Card.Text>
                         {(decoded.role === "STUDENT")
                             ?
                             <Button variant="outline-success"

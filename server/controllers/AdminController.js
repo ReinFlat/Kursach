@@ -10,41 +10,25 @@ class AdminController {
 
     async getStudents(req, res) {
         const {id} = req.params
-        const students = await db.query(`SELECT * FROM students
-                                        WHERE students.company_id = ${id}`)
+        const students = await db.query(`SELECT * FROM Get_companyStudents(${id})`)
         return res.json(students.rows)
     }
 
     async getCountPassed(req, res) {
         const {id} = req.params
-        const count = await db.query(`SELECT COUNT(*) FROM students
-                                        JOIN exams ON students.user_id = exams.user_id
-                                        JOIN marks ON exams.exam_id = marks.exam_id
-                                        WHERE students.company_id = ${id}`)
+        const count = await db.query(`SELECT get_countpassed(${id})`)
         return res.json(count.rows)
     }
 
     async getAverageMark(req, res) {
         const {id} = req.params
-        const averageMark = await db.query(`SELECT ROUND(AVG(marks.mark)) FROM students
-                                            JOIN exams ON students.user_id = exams.user_id
-                                            JOIN marks ON exams.exam_id = marks.exam_id
-                                            WHERE students.company_id = ${id}`)
+        const averageMark = await db.query(`SELECT get_averagemark(${id})`)
         return res.json(averageMark.rows)
     }
 
     async getTraffic(req, res) {
         const {id} = req.params
-        const traffic = await db.query(`SELECT ROUND
-                                        ((SELECT COUNT(*) FROM students 
-                                        JOIN baskets ON students.user_id = baskets.user_id                                        
-                                        WHERE students.company_id = ${id}) 
-                                        ::float/
-                                        (SELECT COUNT(*)
-                                        *(SELECT COUNT(*) FROM students
-                                        WHERE students.company_id = ${id}) 
-                                        FROM lessons)
-                                        *100) `)
+        const traffic = await db.query(`SELECT get_traffic(${id})`)
         return res.json(traffic.rows)
     }
 }

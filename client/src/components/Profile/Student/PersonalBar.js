@@ -25,7 +25,7 @@ const PersonalBar = ({student}) => {
         <Container className="mt-2" style={{height: "100%"}}>
             <MDBListGroup>
                 <MDBListGroupItem noBorders>
-                    <div className='fw-bold'>День рождения: </div>{d.getDate()}/{d.getMonth()}/{d.getFullYear()}
+                    <div className='fw-bold'>День рождения: </div>{d.getDate()}/{d.getMonth()+1}/{d.getFullYear()}
                 </MDBListGroupItem>
                 <MDBListGroupItem noBorders>
                 <div className='fw-bold'>Образование: </div>{student.obrazovanie}
@@ -42,7 +42,7 @@ const PersonalBar = ({student}) => {
                 {
                     countlesson.map((countlesson,i) => 
                     <MDBListGroupItem noBorders key={i} countlesson={countlesson}>
-                    <div className='fw-bold'>Занятий посетил: </div>{countlesson.count}
+                    <div className='fw-bold'>Занятий посетил: </div>{countlesson.get_countlessons}
                     </MDBListGroupItem>)
                 }
                 {

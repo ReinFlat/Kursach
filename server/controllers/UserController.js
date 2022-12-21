@@ -42,11 +42,9 @@ class UserController {
         if (!hashPassword) {
             return next(ApiError.internal('Указан неверный пароль'))
         }
-        console.log('pass')
         const user_id = await db.query('SELECT id FROM users WHERE email = $1', [email])
         console.log(user_id)
         const role = await db.query('SELECT role FROM users WHERE email = $1', [email])
-        console.log('pass3')
         console.log(role)
         const token = generateJwt(user_id.rows[0].id, email, role.rows[0].role)
         return res.json({token})

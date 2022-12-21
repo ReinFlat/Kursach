@@ -7,34 +7,35 @@ class LessonController {
         const {id, date_lesson, time_lesson, discipline_id} = req.body
         let date = new Date()
         let lesson_date = new Date(date_lesson)
-        console.log(time_lesson)
+        const { spawnSync } = require('child_process');
         if ( time_lesson === "") {
-            console.log('Не выбрано время занятия')
+            spawnSync("powershell.exe", [`
+            Add-Type -AssemblyName PresentationCore,PresentationFramework;
+            [System.Windows.MessageBox]::Show('Не выбрано время занятия');
+            `]);
             return next(ApiError.badRequest('Не выбрано время занятия'))
         }
         if ( lesson_date.getDay() >= 6) {
-            console.log('По субботам и воскресеньям занятий нет')
+            spawnSync("powershell.exe", [`
+            Add-Type -AssemblyName PresentationCore,PresentationFramework;
+            [System.Windows.MessageBox]::Show('По субботам и воскресеньям занятий нет');
+            `]);
             return next(ApiError.badRequest('По субботам и воскресеньям занятий нет'))
         }
         if ( date.getTime() > lesson_date.getTime()) {
-            console.log('Нельзя поставить занятие задним числом')
+            spawnSync("powershell.exe", [`
+            Add-Type -AssemblyName PresentationCore,PresentationFramework;
+            [System.Windows.MessageBox]::Show('Нельзя поставить занятие задним числом');
+            `]);
             return next(ApiError.badRequest('Нельзя поставить занятие задним числом'))
         }
-        const havelesson = await db.query('SELECT date_lesson FROM lessons WHERE date_lesson = $1', [date_lesson])
-        if (havelesson.rowCount !== 0 ) {
-            console.log('Это время занято другим занятием')
-            return next(ApiError.badRequest('Это время занято другим занятием'))
-        }
-        const lessons = await db.query('INSERT INTO lessons (date_lesson, time_lesson, discipline_id) values($1, $2, $3) RETURNING *', [date_lesson, time_lesson, discipline_id])
+        const lessons = await db.query('CALL add_lesson($1, $2, $3)', [date_lesson, time_lesson, discipline_id])
         return res.json(lessons.rows)
     }
 
     async getAll(req, res) {     
         let date = new Date()   
-        const lessons = await db.query(`SELECT * FROM lessons 
-                                        JOIN disciplines ON lessons.discipline_id = disciplines.id 
-                                        JOIN teachers ON lessons.discipline_id = teachers.discipline_id 
-                                        WHERE date_lesson > $1`,[date])
+        const lessons = await db.query(`SELECT * FROM get_lessons($1)`,[date])
         return res.json(lessons.rows)
     }
 

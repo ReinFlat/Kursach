@@ -52,15 +52,15 @@ const AdminProfileItem = ({company}) => {
                         <Card.Text>Сотрудников обучается: {countstudents}</Card.Text>
                     
                         {traffic.map((traffic,i) => 
-                            <Card.Text key={i} traffic={traffic}>Посещаемость: {traffic.round}%</Card.Text>)
+                            <Card.Text key={i} traffic={traffic}>Посещаемость: {traffic.get_traffic}%</Card.Text>)
                         }
 
                         {passed.map((passed,i) => 
-                            <Card.Text key={i} passed={passed}>Уже сдали экзамен: {passed.count}</Card.Text>)
+                            <Card.Text key={i} passed={passed}>Уже сдали экзамен: {passed.get_countpassed}</Card.Text>)
                         }
 
                         {average.map((average, i) => 
-                            <Card.Text key={i} average={average}>Средний бал: {average.round}</Card.Text>)
+                            <Card.Text key={i} average={average}>Средний бал: {average.get_averagemark}</Card.Text>)
                         }
 
                     </Card.Body>

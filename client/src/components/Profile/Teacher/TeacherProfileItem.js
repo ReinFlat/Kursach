@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card} from "react-bootstrap";
-import { getCount } from "../../../http/lessonAPI";
+import { getCount } from "../../../http/teacherAPI";
 
 const TeacherProfileItem = ({lesson}) => {
     let d = new Date(lesson.date_lesson);
@@ -15,7 +15,7 @@ const TeacherProfileItem = ({lesson}) => {
         <Card style={{width: 200, cursor: 'pointer', marginTop: "10px",marginBottom: "10px", marginLeft:"10px"}} bg="light" className="card text-center">
                     {
                         count.map((count, i) => 
-                        <Card.Header key={i} count={count}>Записалось: {count.count} чел.</Card.Header>)
+                        <Card.Header key={i} count={count}>Записалось: {count.get_countsigned} чел.</Card.Header>)
                     }
                     <Card.Body>
                         <Card.Title>{lesson.discipline_name}</Card.Title>

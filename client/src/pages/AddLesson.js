@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale} from  "react-datepicker";
 import ru from 'date-fns/locale/ru';
-import {getOne} from '../http/lessonAPI';
+import {getOne} from '../http/teacherAPI';
 import { Context } from '../index';
 import jwt_decode from 'jwt-decode';
 import LessonAdd from "../components/LessonAdd";
