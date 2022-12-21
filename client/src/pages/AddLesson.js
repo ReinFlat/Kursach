@@ -7,6 +7,7 @@ import { Context } from '../index';
 import jwt_decode from 'jwt-decode';
 import LessonAdd from "../components/LessonAdd";
 import { observer } from "mobx-react-lite";
+import { Container } from "react-bootstrap";
 registerLocale('ru', ru)
 
 
@@ -27,11 +28,11 @@ const AddLesson = observer(() => {
 	}, []);
 
     return ( 
-        <div>
+        <Container>
             {teachers.map((teacher, i) =>
                 (<LessonAdd key={i} teacher={teacher}/>)
             )}
-        </div>
+        </Container>
      )
 });
  

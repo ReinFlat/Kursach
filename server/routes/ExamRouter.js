@@ -4,8 +4,10 @@ const router = new Router()
 
 
 
-router.post('/ExamCreate', ExamController.create)
-router.get('/ExamGet', ExamController.getAll)
+router.post('/create', ExamController.create)
+router.get('/:id', ExamController.getExam)
+router.get('/mark/:id', ExamController.getMark)
+
 
 
 module.exports = router

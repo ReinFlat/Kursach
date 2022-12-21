@@ -5,6 +5,11 @@ export const signOne = async (basket) => {
     return data;
 }
 
+export const getAll = async () => {
+    const {data} = await $host.get('api/student/');
+    return data;
+}
+
 export const getOne = async (id) => {
     const {data} = await $host.get('api/student/' + id);
     return data;
@@ -12,11 +17,6 @@ export const getOne = async (id) => {
 
 export const getCountLesson = async (id) => {
     const {data} = await $host.get('api/student/count/' + id);
-    return data;
-}
-
-export const getExam = async (id) => {
-    const {data} = await $host.get('api/student/exam/' + id);
     return data;
 }
 

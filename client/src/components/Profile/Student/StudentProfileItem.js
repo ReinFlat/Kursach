@@ -8,7 +8,8 @@ const StudentProfileItem = ({signed}) => {
                 <Card.Header style={{backgroundColor: "white"}}>{signed.fio}</Card.Header>
                     <Card.Body>
                         <Card.Title>{signed.discipline_name}</Card.Title>
-                        <Card.Text>{d.getDate()}/{d.getMonth()}/{d.getFullYear()}</Card.Text>
+                        <Card.Text>{d.getDate()}/{d.getMonth()+1}/{d.getFullYear()}</Card.Text>
+                        <Card.Text>{signed.time_lesson}</Card.Text>
                     </Card.Body>
             </Card>
      );

@@ -6,7 +6,8 @@ router.post('/StudCreate', StudentController.create)
 router.get('/:id', StudentController.getOne)
 router.post('/', StudentController.signOne)
 router.get('/count/:id', StudentController.getCountLesson)
-router.get('/exam/:id', StudentController.getExam)
 router.get('/signed/:id', StudentController.getSigned)
+router.get('/', StudentController.getAll)
+
 
 module.exports = router

@@ -1,8 +1,8 @@
-import { Container, ListGroup, ListGroupItem } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 import { MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
-import { getCountLesson } from "../http/studentAPI";
+import { getCountLesson } from "../../../http/studentAPI";
 import { useEffect, useState } from "react";
-import { getExam } from "../http/studentAPI";
+import { getMark } from "../../../http/examAPI";
 
 const PersonalBar = ({student}) => {
     let d = new Date(student.birth_date);
@@ -16,7 +16,7 @@ const PersonalBar = ({student}) => {
     }, []);
 
     useEffect(() => {
-        getExam(student.user_id).then((data) => {
+        getMark(student.user_id).then((data) => {
             setMark(data);
         })
     }, [])
@@ -48,7 +48,7 @@ const PersonalBar = ({student}) => {
                 {
                     mark.map((mark, i) => 
                     <MDBListGroupItem noBorders key={i} mark={mark}>
-                    <div className='fw-bold'>Баллов за экзамен: </div>{mark.mark}
+                    <div className='fw-bold'>Баллов за экзамен</div>{mark.discipline_name}: {mark.mark}
                     </MDBListGroupItem>)
                 }
 

@@ -19,3 +19,4 @@ export const getCount = async (id) => {
     const {data} = await $host.get('api/teacher/count/' + id);
     return data;
 }
+

@@ -1,17 +1,27 @@
 import { Card, Container, Row } from "react-bootstrap";
 import TeacherProfileItem from "./TeacherProfileItem";
-import {getAll} from "../http/lessonAPI";
+import {getAll} from "../../../http/lessonAPI";
 import { useEffect, useState } from "react";
+import { getExam } from "../../../http/examAPI";
+import TeacherProfileExam from "./TeacherProfileExam";
 
 const TeacherProfile = ({teacher}) => {
     const [lessons, setLessons] = useState([]);
+    const [exam, setExam] = useState([]);
 
     useEffect(() => {
 		getAll().then((data) => {
-            console.log(data)
 		setLessons(data);
 		})
 	}, []);
+
+    useEffect(() => {
+        getExam().then((data) => {
+            console.log(data);
+            setExam(data);
+        })
+    }, [])
+
 
     return ( 
         <Container style={{marginBottom: "500px"}}>
@@ -20,11 +30,22 @@ const TeacherProfile = ({teacher}) => {
                 <h2>{teacher.discipline_name}</h2>
             </Card>
             <Row className="d-flex m-3">
+                <h2>Ближайшие занятия:</h2>
                 {
                  lessons.map((lesson,i) => {
                         const uslovie = (lesson.fio === teacher.fio);
                         return (uslovie &&
                         (<TeacherProfileItem key={i} lesson={lesson}/> ))
+                    })
+                }
+            </Row>
+            <Row className="d-flex m-3">
+                <h2>Ближайшие экзамены:</h2>
+                {
+                 exam.map((exam,i) => {
+                        const uslovie = (exam.discipline_id === teacher.discipline_id);
+                        return (uslovie &&
+                        (<TeacherProfileExam key={i} exam={exam}/> ))
                     })
                 }
             </Row>

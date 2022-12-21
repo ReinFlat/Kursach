@@ -35,16 +35,6 @@ class StudentController {
         return res.json(count.rows)
     }
 
-    async getExam(req, res) {
-        const {id} = req.params
-        const count = await db.query(`SELECT * FROM exams 
-                                    JOIN marks ON exams.exam_id = marks.exam_id
-                                    JOIN disciplines ON exams.discipline_id = disciplines.id
-                                    JOIN teachers ON exams.discipline_id = teachers.discipline_id
-                                    WHERE exams.user_id = ${id}`)
-        return res.json(count.rows)
-    }
-
     async getSigned(req, res) {
         const {id} = req.params
         const count = await db.query(`SELECT * FROM baskets 
@@ -53,6 +43,11 @@ class StudentController {
                                     JOIN teachers ON lessons.discipline_id = teachers.discipline_id
                                     WHERE baskets.user_id = ${id}`)
         return res.json(count.rows)
+    }
+
+    async getAll(req, res) {
+        const allStudents = await db.query(`SELECT * FROM students`)
+        return res.json(allStudents.rows)
     }
 
 }

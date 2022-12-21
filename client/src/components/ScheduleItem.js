@@ -28,10 +28,15 @@ const ScheduleItem = ({lesson}) => {
                     <Card.Body>
                         <Card.Title>{lesson.discipline_name}</Card.Title>
                         <Card.Text>{d.getDate()}/{d.getMonth()}/{d.getFullYear()}</Card.Text>
-                        <Button variant="outline-success"
-                        onClick={() => addBasket()}>
-                            Записаться
-                        </Button>
+                        {(decoded.role === "STUDENT")
+                            ?
+                            <Button variant="outline-success"
+                            onClick={() => addBasket()}>
+                                Записаться
+                            </Button>
+                            :
+                            <div></div>
+                        }
                     </Card.Body>
             </Card>
      );

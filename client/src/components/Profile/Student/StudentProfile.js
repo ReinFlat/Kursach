@@ -4,9 +4,9 @@ import PersonalBar from "./PersonalBar";
 import StudentProfileExam from "./StudentProfileExam";
 import StudentProfileItem from "./StudentProfileItem";
 import jwt_decode from 'jwt-decode';
-import { Context } from "..";
-import { getOne, getSigned } from "../http/studentAPI";
-import { getExam } from "../http/studentAPI";
+import { Context } from "../../..";
+import { getOne, getSigned } from "../../../http/studentAPI";
+import { getExam } from "../../../http/examAPI";
 
 const StudentProfile = () => {
     const {user} = useContext(Context);
@@ -17,7 +17,6 @@ const StudentProfile = () => {
     if (user.isAuth===true) {
         var token = localStorage.getItem('token');
         var decoded = jwt_decode(token);
-        var role = decoded.role;
     }
 
     useEffect(()=> {
@@ -28,13 +27,13 @@ const StudentProfile = () => {
 
     useEffect(() => {
         getSigned(decoded.id).then((data) => {
-            console.log(data);
             setSigned(data);
         })
     }, [])
 
     useEffect(() => {
-        getExam(decoded.id).then((data) => {
+        getExam().then((data) => {
+            console.log(data)
             setExam(data);
         })
     }, [])
@@ -68,7 +67,9 @@ const StudentProfile = () => {
                     <Row>
                         {
                             exam.map((exam, i) => 
-                            <StudentProfileExam key={i} exam={exam}/>)
+                            (exam.user_id === decoded.id) &&
+                            (<StudentProfileExam key={i} exam={exam}/>)
+                            )
                         }
                     </Row>
                     </Container>

@@ -1,23 +1,47 @@
-import { useState } from "react";
-import { Button, Card, Container, Dropdown, Form} from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Card, Container, Dropdown, Form } from "react-bootstrap";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale} from  "react-datepicker";
 import ru from 'date-fns/locale/ru';
+import { createExam } from "../http/examAPI";
 import { createLesson } from "../http/lessonAPI";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import { getAll } from "../http/studentAPI";
+import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 registerLocale('ru', ru)
 
 const LessonAdd = ({teacher}) => {
 
     const [startDate, setStartDate] = useState(new Date());
     const [time, setTime] = useState('');
+    const [examlesson, setExamlesson] = useState('Добавление занятия');
+    const [allstudents, setAllstudents] = useState([]);
+    const [name, setName] = useState('');
+    const [studentid, setStudentid] = useState('');
 
-    const getData = () => {
-        createLesson({
-            date_lesson: startDate,
-            time_lesson: time,
-            discipline_id: teacher.discipline_id
-        })
+    useEffect(() => {
+		getAll().then((data) => {
+		setAllstudents(data);
+		})
+	}, []);
+
+    const click = () => {
+        if(examlesson === "Добавление экзамена"){
+            createExam({
+                date_exam: startDate, 
+                time_exam: time, 
+                user_id: studentid, 
+                discipline_id: teacher.discipline_id
+            })
+        }
+        if(examlesson === 'Добавление занятия'){
+            createLesson({
+                date_lesson: startDate,
+                time_lesson: time,
+                discipline_id: teacher.discipline_id
+            })
+        }
     };
 
     return ( 
@@ -27,7 +51,7 @@ const LessonAdd = ({teacher}) => {
 
             <Card style={{width: 600}} className="p-5">
 
-            <h2 className="m-auto">Добавление занятия</h2>
+            <h2 className="m-auto">{examlesson || 'Добавление занятия'}</h2>
             
                 <Form className="mt-3 d-flex">
                     <Dropdown className="mt-2 mb-2">
@@ -63,9 +87,28 @@ const LessonAdd = ({teacher}) => {
                     width={200}
                     placeholder={teacher.discipline_name}
                 />
-                <Form className="d-flex mt-4">
+                    {(examlesson === "Добавление занятия")
+                        ?
+                            <Button className="mt-4" variant="outline-dark" onClick={() => setExamlesson("Добавление экзамена")}>Добавить экзамен</Button>
+                        :
+                        <Form className="d-flex mt-4 justify-content-between">
+                            <Button variant="outline-dark" onClick={() => setExamlesson("Добавление занятия")}>Добавить занятие</Button>
+                            <Dropdown>
+                                <Dropdown.Toggle>{ name ||"Выберите студента"}</Dropdown.Toggle>
+                                <DropdownMenu>
+                                    {
+                                        allstudents.map((allstudents, i) => 
+                                        <DropdownItem key={i} allstudents={allstudents} onClick={() => setName(allstudents.fio) + setStudentid(allstudents.user_id)}>
+                                            {allstudents.fio}
+                                        </DropdownItem>)
+                                    }
+                                </DropdownMenu>
+                            </Dropdown>
+                        </Form>
+                    }
+                    <Form className="d-flex mt-4">
                     <DatePicker locale="ru" selected={startDate} onChange={(date) => setStartDate(date)} />
-                    <Button variant="success" onClick={() => getData()} >Добавить</Button>
+                    <Button variant="success" onClick={() => click()} >Добавить</Button>
                 </Form>
             </Card>
         </Container>
