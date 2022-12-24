@@ -7,8 +7,8 @@ import TeacherProfileExam from "./TeacherProfileExam";
 
 const TeacherProfile = ({teacher}) => {
     const [lessons, setLessons] = useState([]);
-    const [exam, setExam] = useState([]);
-
+    const [exams, setExams] = useState([]);
+    
     useEffect(() => {
 		getAll().then((data) => {
 		setLessons(data);
@@ -17,8 +17,7 @@ const TeacherProfile = ({teacher}) => {
 
     useEffect(() => {
         getExam().then((data) => {
-            console.log(data);
-            setExam(data);
+            setExams(data);
         })
     }, [])
 
@@ -35,17 +34,17 @@ const TeacherProfile = ({teacher}) => {
                  lessons.map((lesson,i) => {
                         const uslovie = (lesson.fio === teacher.fio);
                         return (uslovie &&
-                        (<TeacherProfileItem key={i} lesson={lesson}/> ))
+                        (<TeacherProfileItem setLessons={setLessons} lessons={lessons} key={i} lesson={lesson}/> ))
                     })
                 }
             </Row>
             <Row className="d-flex m-3">
                 <h2>Ближайшие экзамены:</h2>
                 {
-                 exam.map((exam,i) => {
+                 exams.map((exam,i) => {
                         const uslovie = (exam.discipline_id === teacher.discipline_id);
                         return (uslovie &&
-                        (<TeacherProfileExam key={i} exam={exam}/> ))
+                        (<TeacherProfileExam key={i} setExams={setExams} exams={exams} exam={exam}/> ))
                     })
                 }
             </Row>

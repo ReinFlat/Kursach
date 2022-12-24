@@ -24,3 +24,8 @@ export const getSigned = async (id) => {
     const {data} = await $host.get('api/student/signed/' + id);
     return data;
 }
+
+export const removeSign = async (id) => {
+    const {data} = await $host.post('api/student/removeSign/' + id);
+    return data;
+}

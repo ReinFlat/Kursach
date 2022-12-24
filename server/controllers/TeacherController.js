@@ -15,6 +15,18 @@ class TeacherController {
         return res.json(count.rows)
     }
 
+    async removeLesson(req, res) {
+        const {id} = req.params
+        const lesson = await db.query('CALL remove_lesson($1)', [id])
+        return res.json(lesson.rows)
+    }
+
+    async removeExam(req, res) {
+        const {id} = req.params
+        const exam = await db.query('CALL remove_exam($1)', [id])
+        return res.json(exam.rows)
+    }
+
 }
 
 module.exports = new TeacherController

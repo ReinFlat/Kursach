@@ -46,6 +46,12 @@ class StudentController {
         return res.json(allStudents.rows)
     }
 
+    async removeSign(req, res) {
+        const {id} = req.params
+        const sign = await db.query('CALL remove_sign($1)', [id])
+        return res.json(sign.rows)
+    }
+
 }
 
 module.exports = new StudentController

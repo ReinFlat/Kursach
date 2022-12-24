@@ -43,15 +43,13 @@ class UserController {
             return next(ApiError.internal('Указан неверный пароль'))
         }
         const user_id = await db.query('SELECT id FROM users WHERE email = $1', [email])
-        console.log(user_id)
+        console.log("id пользователя = " + user_id.rows[0].id)
         const role = await db.query('SELECT role FROM users WHERE email = $1', [email])
-        console.log(role)
+
         const token = generateJwt(user_id.rows[0].id, email, role.rows[0].role)
         return res.json({token})
     }
     async check(req, res, next) {
-        console.log(req.rows)
-        console.log(res.rows)
         const token = generateJwt(req.user.id, req.user.email, req.user.role)
         return res.json({token})
     }

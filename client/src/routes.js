@@ -3,7 +3,8 @@ import Auth from "./pages/Auth"
 import SignLesson from "./pages/SignLesson"
 import Main from "./pages/Main"
 import Profile from "./pages/Profile";
-import { SIGNL_ROUTE, ADDL_ROUTE, MAIN_ROUTE, LOGIN_ROUTE, PROF_ROUTE} from "./utils/consts";
+import Registration from "./pages/Registration"
+import { SIGNL_ROUTE, ADDL_ROUTE, MAIN_ROUTE, LOGIN_ROUTE, PROF_ROUTE, REG_ROUTE} from "./utils/consts";
 
 export const teacherRoutes = [
     {
@@ -33,12 +34,12 @@ export const adminRoutes = [
         Component: SignLesson
     },
     {
-        path: ADDL_ROUTE,
-        Component: AddLesson
-    },
-    {
         path: PROF_ROUTE,
         Component: Profile
+    },
+    {
+        path: REG_ROUTE,
+        Component: Registration
     }
 ]
 

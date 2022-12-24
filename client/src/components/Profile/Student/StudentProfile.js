@@ -11,7 +11,7 @@ import { getExam } from "../../../http/examAPI";
 const StudentProfile = () => {
     const {user} = useContext(Context);
     const [student, setStudent] = useState([]);
-    const [signed, setSigned] = useState([]);
+    const [signeds, setSigned] = useState([]);
     const [exam, setExam] = useState([]);
 
     if (user.isAuth===true) {
@@ -59,8 +59,8 @@ const StudentProfile = () => {
                     <h3 style={{marginTop: 30}}>Вы записались на: </h3>
                     <Row>
                         {
-                            signed.map((signed, i) => 
-                            <StudentProfileItem key={i} signed={signed}/>)
+                            signeds.map((signed, i) => 
+                            <StudentProfileItem key={i} signeds={signeds} setSigned={setSigned} signed={signed}/>)
                         }
                     </Row>
                     <h3 style={{marginTop: 30}}>Ближайшие экзамены: </h3>

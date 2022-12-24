@@ -15,7 +15,7 @@ class LessonController {
             `]);
             return next(ApiError.badRequest('Не выбрано время занятия'))
         }
-        if ( lesson_date.getDay() >= 6) {
+        if ( lesson_date.getDay() === 6 || lesson_date.getDay() === 0) {
             spawnSync("powershell.exe", [`
             Add-Type -AssemblyName PresentationCore,PresentationFramework;
             [System.Windows.MessageBox]::Show('По субботам и воскресеньям занятий нет');

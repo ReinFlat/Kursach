@@ -31,11 +31,11 @@ const NavBar = observer(() => {
                     role==='ADMIN'
                     ?
                     <Nav className="ml-auto">
-                        <Nav.Link href="/signl">Записаться на занятие</Nav.Link>
-                        <Nav.Link href="/addl">Добавить занятие</Nav.Link>
+                        <Nav.Link href="/registration">Регистрация</Nav.Link>
+                        <Nav.Link href="/signl">Расписание занятий</Nav.Link>
                         <ButtonGroup>
                             <Button variant={"outline-light"} style={{marginLeft:'10px'}} onClick={() => navigate(PROF_ROUTE)}>
-                                Личный кабинет
+                                Статистика по предприятиям
                             </Button>
                             <Button variant={"outline-light"} onClick={() => logOut()}
                                 >Выйти
