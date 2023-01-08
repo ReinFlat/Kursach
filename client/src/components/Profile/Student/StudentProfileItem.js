@@ -17,10 +17,16 @@ const StudentProfileItem = ({signed, signeds, setSigned}) => {
                         <Card.Title>{signed.discipline_name}</Card.Title>
                         <Card.Text>{d.getDate()}/{d.getMonth()+1}/{d.getFullYear()}</Card.Text>
                         <Card.Text>{signed.time_lesson}</Card.Text>
-                        <Button variant="outline-danger"
+                        {(d > new Date())
+                        ?
+                            <Button variant="outline-danger"
                             onClick={() => click(signed.lesson_id)}>
                                 Отменить
                             </Button>
+                        :
+                            <div></div>
+                        }
+                        
                     </Card.Body>
             </Card>
      );

@@ -28,10 +28,15 @@ const TeacherProfileItem = ({lesson, setLessons, lessons}) => {
                         <Card.Title>{lesson.discipline_name}</Card.Title>
                         <Card.Text>{d.getDate()}/{d.getMonth()+1}/{d.getFullYear()}</Card.Text>
                         <Card.Text>{lesson.time_lesson}</Card.Text>
-                        <Button variant="outline-danger"
+                        {(d > new Date())
+                        ?
+                            <Button variant="outline-danger"
                             onClick={() => click(lesson.lesson_id)}>
                                 Отменить
                             </Button>
+                        :
+                            <div></div>
+                        }
                         
                     </Card.Body>
             </Card>
