@@ -80,21 +80,14 @@ class AdminController {
     async updateStudent(req, res) {
         const {user_id, birth_date, obrazovanie, fio, position_id} = req.body
         console.log({user_id, birth_date, obrazovanie, fio, position_id})
-        //const student = await db.query('CALL update_student($1, $2, $3, $4, $5)', [user_id, birth_date, obrazovanie, fio, position_id])
-        //return res.json(student.rows)
+        const student = await db.query('CALL update_student($1, $2, $3, $4, $5)', [user_id, birth_date, obrazovanie, fio, position_id])
+        return res.json(student.rows)
     }
 
 
-    async getCountPassed(req, res) {
-        const {id} = req.params
-        const count = await db.query(`SELECT get_countpassed(${id})`)
-        return res.json(count.rows)
-    }
-
-    async getAverageMark(req, res) {
-        const {id} = req.params
-        const averageMark = await db.query(`SELECT get_averagemark(${id})`)
-        return res.json(averageMark.rows)
+    async getStats(req, res) {
+        const stats = await db.query(`SELECT * FROM get_stats()`)
+        return res.json(stats.rows)
     }
 
     async getTraffic(req, res) {

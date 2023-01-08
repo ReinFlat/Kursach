@@ -15,13 +15,8 @@ export const getDepartment = async () => {
     return data;
 }
 
-export const getCountPassed = async (id) => {
-    const {data} = await $host.get('api/admin/count/' + id);
-    return data;
-}
-
-export const getAverageMark = async (id) => {
-    const {data} = await $host.get('api/admin/average/' + id);
+export const getStats = async () => {
+    const {data} = await $host.get('api/admin/stats');
     return data;
 }
 
