@@ -33,7 +33,7 @@ const CreateCompany = observer(({show, onHide}) => {
             centered>
              <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Добавить студента
+                    Добавить компанию
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>

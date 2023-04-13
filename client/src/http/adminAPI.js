@@ -40,6 +40,13 @@ export const getIds = async () => {
     return data;
 }
 
+export const getAddresses = async () => {
+    const {data} = await $host.get('api/admin/addresses');
+    return data;
+}
+
+
+
 export const createCompany = async (company) => {
     const {data} = await $authHost.post('api/admin/addcompany', company);
     return data;

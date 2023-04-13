@@ -8,6 +8,7 @@ router.get('/traffic/:id', AdminController.getTraffic)
 router.get('/students/:id', AdminController.getStudents)
 router.get('/emails', AdminController.getEmails)
 router.get('/ids', AdminController.getIds)
+router.get('/addresses', AdminController.getAddresses)
 
 router.get('/position', AdminController.getPosition)
 router.post('/addposition', AdminController.createPosition)
@@ -22,5 +23,7 @@ router.post('/updateCompany', AdminController.updateCompany)
 router.post('/addstudent', AdminController.createStudent)
 router.post('/removeStudent/:id', AdminController.removeStudent)
 router.post('/updateStudent', AdminController.updateStudent)
+
+
 
 module.exports = router

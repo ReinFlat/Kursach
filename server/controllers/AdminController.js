@@ -95,6 +95,12 @@ class AdminController {
         const traffic = await db.query(`SELECT get_traffic(${id})`)
         return res.json(traffic.rows)
     }
+
+
+    async getAddresses(req, res) {
+        const addresses = await db.query(`SELECT * FROM stud_addresses`)
+        return res.json(addresses.rows)
+    }
 }
 
 module.exports = new AdminController
