@@ -5,7 +5,7 @@ import teacher3 from '../assets/teacher3.png'
 
 const Teachers = () => {
     return ( 
-        <Container className="mt-5">
+        <Container className="mt-5 mb-5">
             <h2>
                 Наши преподаватели
             </h2>

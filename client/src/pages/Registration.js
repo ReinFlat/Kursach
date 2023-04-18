@@ -5,15 +5,16 @@ import CreateStudent from "../components/modals/CreateStudent";
 import AdminTable from "../components/Profile/Admin/AdminTable";
 import { getCompany } from "../http/adminAPI";
 import { getAddresses } from "../http/adminAPI";
-import { YMaps, Map, Circle, Placemark, ListBox, ListBoxItem } from '@pbe/react-yandex-maps';
+import { YMaps, Map, Circle, Placemark } from '@pbe/react-yandex-maps';
 import MyPlacemark from "../components/MyPlacemark";
+import AddressCard from "../components/AddressCard";
 
 const Registration = () => {
     const [companyVisible, setCompanyVisible] = useState(false)
     const [studentVisible, setStudentVisible] = useState(false)
     const [companys, setCompanys] = useState([]);
     const [addresses, setAddresses] = useState([]);
-
+    const [placeId, setPlaceId] = useState();
 
     useEffect(()=> {
         console.log('aboba222')
@@ -25,9 +26,6 @@ const Registration = () => {
     useEffect(()=> {
         getAddresses().then((data) => {
             setAddresses(data);
-            console.log(data[0].address)
-            console.log(data[1].user_id)
-            console.log(data[2].address.x)
         })
     }, []);
 
@@ -47,26 +45,31 @@ const Registration = () => {
                 companys.map((company, i) => 
                 <AdminTable key={i} setCompanys={setCompanys} companys={companys} company={company}/>)
             }
-
             <YMaps>
                 <Card border="dark" className="mt-3">
-                    <Row style={{marginTop:25, marginBottom:25}}>
-                        <Col xs={3}/>
+                    <Row style={{marginTop:25, marginBottom:25, marginLeft: 15}}>
+                        <Col xs={3}>
+                            {
+                                addresses.map(address =>
+                                    <AddressCard setPlaceId={setPlaceId} key={address.user_id} address={address}/>)
+                            }
+                        </Col>
                         <Col>
                             <Map width={800} height={650} defaultState={{ center: [57.150417, 65.548863], zoom: 12 }}>
                             <Circle geometry={[[57.150417, 65.548863], 1000]} />
                             <Placemark geometry={[57.150417, 65.548863]} 
                             options={{
-                                preset: 'islands#blueEducationIcon'
-                            }} />
+                                preset: 'islands#blueEducationIcon',
+                            }}
+                            properties={{
+                                balloonContentHeader: 'LevelUp',
+                                balloonContentBody: 'Володарского 56',
+                            }}  
+                            />
                             {
-                                addresses.map(address =>
-                                <MyPlacemark key={address.user_id} address={address} />)
+                                addresses.map((address) =>
+                                <MyPlacemark placeId={placeId} key={address.user_id} address={address} />)
                             }
-                            <ListBox data={{ content: 'Select city' }}>
-                                <ListBoxItem data={{ content: 'Moscow' }} />
-                                <ListBoxItem data={{content: 'Saint Petersburg',}}/>
-                            </ListBox>
                             </Map>
                         </Col>
                     </Row>
