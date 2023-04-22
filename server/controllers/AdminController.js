@@ -66,10 +66,11 @@ class AdminController {
 
 
     async createStudent(req, res) {
-        const {id, email, password, role, birth_date, obrazovanie, fio, company_id, position_id} = req.body
-        console.log({id, email, password, role, birth_date, obrazovanie, fio, company_id, position_id})
+        const {id, email, password, role, birth_date, obrazovanie, fio, company_id, position_id, address, coords} = req.body
+        console.log({id, email, password, role, birth_date, obrazovanie, fio, company_id, position_id, address, coords})
         const hashPassword = await bcrypt.hash(password, 5)
-        const student = await db.query('CALL add_student($1, $2, $3, $4, $5, $6, $7, $8, $9)', [id, email, hashPassword, role, birth_date, obrazovanie, fio, company_id, position_id])
+        const student = await db.query('CALL add_student($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', 
+        [id, email, hashPassword, role, birth_date, obrazovanie, fio, company_id, position_id, address, coords])
         return res.json(student.rows)
     }
     async removeStudent(req, res) {
@@ -96,11 +97,16 @@ class AdminController {
         return res.json(traffic.rows)
     }
 
-
     async getAddresses(req, res) {
         const addresses = await db.query(`SELECT * FROM stud_addresses`)
         return res.json(addresses.rows)
     }
+    async updateAddresses(req, res) {
+        const {user_id, address, coords} = req.body
+        const addresses = await db.query('CALL update_addresses($1, $2, $3)', [user_id, address, coords])
+        return res.json(addresses.rows)
+    }
+    
 }
 
 module.exports = new AdminController

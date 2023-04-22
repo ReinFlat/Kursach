@@ -16,7 +16,7 @@ const MyPlacemark = ({address, placeId}) => {
             {
                 student.map((student, i) =>
                     <Placemark student={student} key={i}
-                        geometry={[address.address.x , address.address.y]} 
+                        geometry={[address.coords.x , address.coords.y]} 
                         options={{
                         preset: 'islands#blackRunIcon'}}
                         properties={{

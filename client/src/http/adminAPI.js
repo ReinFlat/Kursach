@@ -40,8 +40,13 @@ export const getIds = async () => {
     return data;
 }
 
+
 export const getAddresses = async () => {
     const {data} = await $host.get('api/admin/addresses');
+    return data;
+}
+export const updateAddresses = async (addresses) => {
+    const {data} = await $authHost.post('api/admin/updateAddresses', addresses);
     return data;
 }
 

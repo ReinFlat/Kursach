@@ -8,7 +8,9 @@ router.get('/traffic/:id', AdminController.getTraffic)
 router.get('/students/:id', AdminController.getStudents)
 router.get('/emails', AdminController.getEmails)
 router.get('/ids', AdminController.getIds)
+
 router.get('/addresses', AdminController.getAddresses)
+router.post('/updateAddresses', AdminController.updateAddresses)
 
 router.get('/position', AdminController.getPosition)
 router.post('/addposition', AdminController.createPosition)

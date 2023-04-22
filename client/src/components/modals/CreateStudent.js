@@ -1,8 +1,9 @@
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
-import { Button, Dropdown, Form, FormControl, InputGroup, Modal } from "react-bootstrap";
+import { Button, Col, Dropdown, Form, FormControl, InputGroup, Modal, Row } from "react-bootstrap";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { createDepartment, createPosition, createStudent, getCompany, getDepartment, getEmails, getIds, getPosition} from "../../http/adminAPI";
+import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 
 const CreateStudent = observer(({show, onHide}) => {
     const [date, setDate] = useState();
@@ -27,6 +28,16 @@ const CreateStudent = observer(({show, onHide}) => {
     const [positionId, setPositionId] = useState('');
     const [typedepartment, setTypedepartment] = useState('')
     const [typeposition, setTypeposition] = useState('')
+    const [ addressName, setAddressName ] = useState()
+    const [coords, setCoords] = useState(null);
+
+    const getCoords = e => {
+        window.ymaps.geocode(e.get('coords')).then(res => {
+            let firstGeoObject = res.geoObjects.get(0);
+            setCoords(firstGeoObject.geometry._coordinates)
+            setAddressName(firstGeoObject.getAddressLine())
+        })
+    }
 
     useEffect(()=> {
         getEmails().then((data) => {
@@ -114,6 +125,9 @@ const CreateStudent = observer(({show, onHide}) => {
         if(nameposition === ''){
             return(alert("Выберите должность"))
         }
+        if(coords === null || !coords){
+            return(alert("Выберите адрес проживания студента"))
+        }
         createStudent({
             id: last,
             email: nameemail,
@@ -124,6 +138,8 @@ const CreateStudent = observer(({show, onHide}) => {
             fio: fio,
             company_id: companyId,
             position_id: positionId,
+            address: addressName,
+            coords: `${coords[0]},${coords[1]}`
         })
         window.location.reload();
     }
@@ -148,67 +164,97 @@ const CreateStudent = observer(({show, onHide}) => {
                     </InputGroup>
                     <FormControl className="mt-2 mb-2" placeholder="Введите ФИО сотрудника" onChange={e => setFio(e.target.value)}/>
                     <FormControl className="mt-2 mb-2" placeholder="Введите образование" onChange={e => setObrazovanie(e.target.value)}/>
-                        <Dropdown>
-                            <DropdownToggle variant="outline-dark">{name ||"Выберите компанию"}</DropdownToggle>
-                            <Dropdown.Menu>
-                                {
-                                    company.map((company) => 
-                                    <Dropdown.Item key={company.id} company={company} onClick={() => setName(company.company_name) + setCompanyId(company.id)}>{company.company_name}</Dropdown.Item>)
-                                }
-                            </Dropdown.Menu>
-                        </Dropdown>
+                    <Row>
+                        <Col>
+                            <Dropdown>
+                                    <DropdownToggle variant="outline-dark">{name ||"Выберите компанию"}</DropdownToggle>
+                                    <Dropdown.Menu>
+                                        {
+                                            company.map((company) => 
+                                            <Dropdown.Item key={company.id} company={company} onClick={() => setName(company.company_name) + setCompanyId(company.id)}>{company.company_name}</Dropdown.Item>)
+                                        }
+                                    </Dropdown.Menu>
+                                </Dropdown>
 
-                        <Form className="d-flex justify-content-between mt-2 pl-3 pr-3 ">
-                        <Dropdown>
-                            <DropdownToggle variant="outline-dark">{namedepartment ||"Выберите подразделение"}</DropdownToggle>
-                            <Dropdown.Menu>
+                                <Form className="d-flex justify-content-between mt-2 pl-3 pr-3 ">
+                                <Dropdown>
+                                    <DropdownToggle variant="outline-dark">{namedepartment ||"Выберите подразделение"}</DropdownToggle>
+                                    <Dropdown.Menu>
+                                        {
+                                            department.map((department) => 
+                                            <Dropdown.Item key={department.id} department={department} onClick={() => setNameDepartment(department.name) + setDepartmentId(department.id)}>
+                                                {department.name}
+                                            </Dropdown.Item>)
+                                        }
+                                        <Dropdown.Item className="text-primary" onClick={() => setShowAddDepartment(true)}>+ Добавить новое</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
                                 {
-                                    department.map((department) => 
-                                    <Dropdown.Item key={department.id} department={department} onClick={() => setNameDepartment(department.name) + setDepartmentId(department.id)}>
-                                        {department.name}
-                                    </Dropdown.Item>)
+                                showAddDepartment
+                                ?
+                                <InputGroup>
+                                    <Button onClick={() => setShowAddDepartment(false) + addDepartment()} variant="outline-secondary" id="button-addon1">
+                                    +
+                                    </Button>
+                                    <FormControl placeholder="Добавить подразделение" onChange={e => setTypedepartment(e.target.value)}/>
+                                </InputGroup>
+                                :
+                                <div></div>
                                 }
-                                <Dropdown.Item className="text-primary" onClick={() => setShowAddDepartment(true)}>+ Добавить новое</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                        {
-                        showAddDepartment
-                        ?
-                        <InputGroup>
-                            <Button onClick={() => setShowAddDepartment(false) + addDepartment()} variant="outline-secondary" id="button-addon1">
-                            +
-                            </Button>
-                            <FormControl placeholder="Добавить подразделение" onChange={e => setTypedepartment(e.target.value)}/>
-                        </InputGroup>
-                        :
-                        <div></div>
-                        }
-                    </Form>
+                                </Form>
 
-                    <Form className="d-flex justify-content-between mt-2 pl-3 pr-3 ">
-                        <Dropdown>
-                            <DropdownToggle variant="outline-dark">{nameposition ||"Выберите должность"}</DropdownToggle>
-                            <Dropdown.Menu>
+                                <Form className="d-flex justify-content-between mt-2 pl-3 pr-3 ">
+                                <Dropdown>
+                                    <DropdownToggle variant="outline-dark">{nameposition ||"Выберите должность"}</DropdownToggle>
+                                    <Dropdown.Menu>
+                                        {
+                                            position.map((position) => 
+                                            <Dropdown.Item key={position.id} position={position} onClick={() => setNamePosition(position.name_position) + setPositionId(position.id)}>{position.name_position}</Dropdown.Item>)
+                                        }
+                                        <Dropdown.Item className="text-primary" onClick={() => setShowAddPosition(true)}>+ Добавить новую</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
                                 {
-                                    position.map((position) => 
-                                    <Dropdown.Item key={position.id} position={position} onClick={() => setNamePosition(position.name_position) + setPositionId(position.id)}>{position.name_position}</Dropdown.Item>)
+                                showAddPosition
+                                ?
+                                <InputGroup>
+                                    <Button onClick={() => setShowAddPosition(false) + addPosition()} variant="outline-secondary" id="button-addon1">
+                                    +
+                                    </Button>
+                                    <FormControl placeholder="Добавить должность" onChange={e => setTypeposition(e.target.value)}/>
+                                </InputGroup>
+                                :
+                                <div></div>
                                 }
-                                <Dropdown.Item className="text-primary" onClick={() => setShowAddPosition(true)}>+ Добавить новую</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                        {
-                        showAddPosition
-                        ?
-                        <InputGroup>
-                            <Button onClick={() => setShowAddPosition(false) + addPosition()} variant="outline-secondary" id="button-addon1">
-                            +
-                            </Button>
-                            <FormControl placeholder="Добавить должность" onChange={e => setTypeposition(e.target.value)}/>
-                        </InputGroup>
-                        :
-                        <div></div>
-                        }
-                    </Form>
+                            </Form>
+                        </Col>
+                        <Col>
+                                <textarea style={{height: 30}} className="form-control" readOnly value={addressName}/>
+                                <YMaps query={{
+                                apikey: '3a1a2903-1e56-44e6-8754-b628cb64d32a',
+                                ns: "ymaps",
+                                }}>
+                                    <Map 
+                                    defaultState={{ center: [57.150417, 65.548863], zoom: 10 }} height={100} width={214}
+                                    modules= {["geocode"]}
+                                    onClick={e => getCoords(e)}>
+                                        <Placemark
+                                            geometry={{
+                                                type: 'Point',
+                                                coordinates: coords,
+                                            } }
+                                            properties={{
+                                                iconContent: addressName,   
+                                            }}
+                                            options={{
+                                                preset: 'islands#blackStretchyIcon',
+                                            }}
+                                        /> 
+                                    </Map>
+                                </YMaps>
+                        </Col>
+                    </Row>
+                        
                 </Form>
             </Modal.Body>
             <Modal.Footer className="d-flex">

@@ -11,7 +11,6 @@ const AdminTable = ({company, setCompanys, companys}) => {
     const [position, setPosition] = useState([]);
     const [loading, setLoading] = useState(true)
 
-
     useEffect(()=> {
         getStudents(company.id).then((data) => {
             setStudents(data);
@@ -73,6 +72,7 @@ const AdminTable = ({company, setCompanys, companys}) => {
                     <th>Образование</th>
                     <th>Должность</th>
                     <th>Подразделение</th>
+                    <th>Адрес</th>
                     </tr>
                 </thead>
                 {

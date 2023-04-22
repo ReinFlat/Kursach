@@ -9,7 +9,6 @@ import NavBar from './components/NavBar';
 import { check } from './http/userAPI';
 
 const App = observer(() => {
-  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=<3a1a2903-1e56-44e6-8754-b628cb64d32a>" type="text/javascript"></script>
   const {user} = useContext(Context)
   const [loading, setLoading] = useState(true)
 

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { format } from 'date-fns';
-import { removeStudent, updateStudent } from "../../../http/adminAPI";
+import { getAddresses, removeStudent, updateStudent } from "../../../http/adminAPI";
 import { CloseButton, Dropdown, FormControl, Button} from "react-bootstrap";
+import ChooseAddress from "../../modals/ChooseAddress";
+
 
 const StudentRow = ({position = [], student, students, setStudents}) => {
     const [sotrBirth, setSotrBirth] = useState(format(new Date(student.birth_date), 'yyyy-MM-dd'));
@@ -9,9 +11,13 @@ const StudentRow = ({position = [], student, students, setStudents}) => {
     const [sotrObraz, setSotrObraz] = useState(student.obrazovanie);
     const [positionId, setPositionId] = useState(position?.find((item) => item?.id === student?.position_id)?.id);
     const [showPosition, setShowPosition] = useState(position?.find((item) => item?.id === student?.position_id)?.name_position);
+    const [addresses, setAddresses] = useState([]);
+    const [addressVisible, setAddressVisible] = useState(false)
 
     useEffect(() => {
-        console.log(showPosition);
+        getAddresses().then((data) => {
+            setAddresses(data);
+        })
     }, [showPosition])
 
     const updateUser = () => {
@@ -80,6 +86,17 @@ const StudentRow = ({position = [], student, students, setStudents}) => {
                 <td>
                     <textarea readOnly className="form-control" rows="1" value={student.department_name}/>
                 </td>
+                    {
+                        addresses.map(address => {
+                            const uslovie = (student.user_id === address.user_id)
+                            return(uslovie &&
+                                (<td key={address.user_id}>
+                                    <textarea onClick={() => setAddressVisible(true)} readOnly className="form-control" rows="1" value={address.address}/>
+                                    <ChooseAddress address={address} show={addressVisible} onHide={() => setAddressVisible(false)}/>
+                                </td>)
+                            )
+                        })
+                    }
                 <td>
                     <Button 
                         variant="white" 

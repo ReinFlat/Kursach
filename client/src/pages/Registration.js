@@ -1,5 +1,5 @@
 import { useEffect, useState} from "react";
-import { Button, ButtonGroup, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, ButtonGroup, Card, Col, Container, Row} from "react-bootstrap";
 import CreateCompany from "../components/modals/CreateCompany";
 import CreateStudent from "../components/modals/CreateStudent";
 import AdminTable from "../components/Profile/Admin/AdminTable";
@@ -17,7 +17,6 @@ const Registration = () => {
     const [placeId, setPlaceId] = useState();
 
     useEffect(()=> {
-        console.log('aboba222')
         getCompany().then((data) => {
             setCompanys(data);
         })
@@ -47,15 +46,18 @@ const Registration = () => {
             }
             <YMaps>
                 <Card border="dark" className="mt-3">
-                    <Row style={{marginTop:25, marginBottom:25, marginLeft: 15}}>
+                    <Row style={{marginTop:25, marginBottom:25}}>
                         <Col xs={3}>
+                            <Container style={{height: 650 ,overflowY: "scroll"}}>
                             {
                                 addresses.map(address =>
-                                    <AddressCard setPlaceId={setPlaceId} key={address.user_id} address={address}/>)
+                                <AddressCard setPlaceId={setPlaceId} key={address.user_id} address={address}/>)
                             }
+                            </Container>
+
                         </Col>
                         <Col>
-                            <Map width={800} height={650} defaultState={{ center: [57.150417, 65.548863], zoom: 12 }}>
+                            <Map width={800} height={650} defaultState={{ center: [57.150417, 65.548863], zoom: 14 }}>
                             <Circle geometry={[[57.150417, 65.548863], 1000]} />
                             <Placemark geometry={[57.150417, 65.548863]} 
                             options={{
