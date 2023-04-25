@@ -85,7 +85,6 @@ const Registration = () => {
                                                 strokeColor: '#8b8b8b',
                                                 strokeOpacity: 0.8,
                                                 strokeWidth: 5,
-                                                draggable: true
                                             }}
                                             geometry={[center, 1000]}
                                             onDragEnd={handleCircleDrag}
