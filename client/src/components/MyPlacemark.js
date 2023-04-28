@@ -2,7 +2,7 @@ import { Placemark } from '@pbe/react-yandex-maps';
 import { getOne } from "../http/studentAPI";
 import { useEffect, useState } from "react";
 
-const MyPlacemark = ({address, placeId}) => {
+const MyPlacemark = ({address}) => {
     const [student, setStudent] = useState([]);
 
     useEffect(()=> {
@@ -27,7 +27,6 @@ const MyPlacemark = ({address, placeId}) => {
                             balloonContentFooter: `Компания: ${student.company_name}`
                           }}
                         modules= {['geoObject.addon.balloon', 'geoObject.addon.hint']}
-                        instanceRef={ref => {ref && placeId===address.user_id && ref.balloon.open()}}
                         />
                 )
             }

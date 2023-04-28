@@ -1,4 +1,4 @@
-import { useEffect, useState} from "react";
+import { useEffect, useRef, useState} from "react";
 import { ButtonGroup, Card, Col, Container, Row} from "react-bootstrap";
 import CreateCompany from "../components/modals/CreateCompany";
 import CreateStudent from "../components/modals/CreateStudent";
@@ -14,13 +14,41 @@ const Registration = () => {
     const [studentVisible, setStudentVisible] = useState(false)
     const [companys, setCompanys] = useState([]);
     const [addresses, setAddresses] = useState([]);
-    const [placeId, setPlaceId] = useState();
+    const [placeCoord, setPlaceCoord] = useState([null]);
+    const [oldPlace, setOldPlace] = useState([null]);
     const [center, setCenter] = useState([55.76, 37.64]); // начальные координаты центра круга
     const [addCircle, setAddCircle] = useState(false);
+    const map = useRef(null);
 
     const handleCircleDrag = (event) => {
         setCenter(event.originalEvent.target.geometry.getCoordinates()); // обновляем координаты центра круга при его перетаскивании
     };
+
+    const addRoute = () => {
+        const pointA = placeCoord; // Москва
+        const pointB = [57.150417, 65.548863]; // Санкт-Петербург
+    
+        const multiRoute = new window.ymaps.multiRouter.MultiRoute(
+          {
+            referencePoints: [pointA, pointB],
+            params: {
+              routingMode: "pedestrian",
+              results: 1
+            }
+          },
+          {
+            boundsAutoApply: true
+          }
+        );
+
+        if((placeCoord!==null) && (oldPlace[0]!==placeCoord[0]))
+        {
+            map.current.geoObjects.remove(map.current.geoObjects._map.geoObjects._parentArray._baseArrayComponent._children[9]);
+            map.current.geoObjects.add(multiRoute);
+            setOldPlace(placeCoord);
+        }
+
+      };
 
     useEffect(()=> {
         getCompany().then((data) => {
@@ -50,22 +78,28 @@ const Registration = () => {
                 companys.map((company, i) => 
                 <AdminTable key={i} setCompanys={setCompanys} companys={companys} company={company}/>)
             }
-            <YMaps>
+            <YMaps
+            query={{
+                apikey: '3a1a2903-1e56-44e6-8754-b628cb64d32a',
+                ns: "ymaps"}}>
                 <Card border="dark" className="mt-3">
                     <Row style={{marginTop:25, marginBottom:25}}>
                         <Col xs={3}>
                             <Container style={{height: 650 ,overflowY: "scroll"}}>
                             {
                                 addresses.map(address =>
-                                <AddressCard setPlaceId={setPlaceId} key={address.user_id} address={address}/>)
+                                <AddressCard setPlaceCoord={setPlaceCoord} addRoute={addRoute} key={address.user_id} address={address}/>)
                             }
                             </Container>
 
                         </Col>
                         <Col>
                             <Container style={{ width:800, height:680}}>
-                            <Map width={800} height={650} 
-                            defaultState={{ center: [57.150417, 65.548863], zoom: 14 }}
+                            <Map 
+                            modules={["multiRouter.MultiRoute"]}
+                            instanceRef={map}
+                            width={800} height={650} 
+                            defaultState={{ center: [57.150417, 65.548863], zoom: 12 }}
                             onActionEnd={(event) => {
                                 setCenter(event.get('target').getCenter()); // обновляем координаты центра карты при ее перемещении
                               }}>
@@ -110,7 +144,7 @@ const Registration = () => {
                             />
                             {
                                 addresses.map((address) =>
-                                <MyPlacemark placeId={placeId} key={address.user_id} address={address} />)
+                                <MyPlacemark key={address.user_id} address={address} />)
                             }
                             </Map>
                             </Container>
@@ -118,7 +152,6 @@ const Registration = () => {
                     </Row>
                 </Card>
             </YMaps>
-            
         </Container>
      );
 }

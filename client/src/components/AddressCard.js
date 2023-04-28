@@ -1,8 +1,8 @@
-import { Card, Form } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { getOne } from "../http/studentAPI";
 import { useEffect, useState } from "react";
 
-const AddressCard = ({address, setPlaceId}) => {
+const AddressCard = ({address, addRoute, setPlaceCoord}) => {
     const [student, setStudent] = useState([]);
 
     useEffect(()=> {
@@ -17,7 +17,7 @@ const AddressCard = ({address, setPlaceId}) => {
                 student.map((student, i) =>
                     <Card 
                     className="mt-2" student={student} key={i}
-                    onClick={() => setPlaceId(address.user_id)}>
+                    onClick={() => {setPlaceCoord([address.coords.x , address.coords.y]); addRoute()}}>
                         <Card.Header>{student.fio}</Card.Header>
                         <Card.Body>
                             Должность: {student.name_position}{"\n"}
