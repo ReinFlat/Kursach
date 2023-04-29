@@ -23,7 +23,7 @@ const Registration = () => {
     const handleCircleDrag = (event) => {
         setCenter(event.originalEvent.target.geometry.getCoordinates()); // обновляем координаты центра круга при его перетаскивании
     };
-
+    
     const addRoute = () => {
         const pointA = placeCoord; // Москва
         const pointB = [57.150417, 65.548863]; // Санкт-Петербург
@@ -59,8 +59,19 @@ const Registration = () => {
     useEffect(()=> {
         getAddresses().then((data) => {
             setAddresses(data);
+            console.log(data)
         })
     }, []);
+
+    function calculateDistance(targetPoint) {
+        let totalDistance = 0;
+        for (let i = 0; i < addresses.length; i++) {
+          const distance = Math.sqrt(Math.pow(addresses[i].coords.x - targetPoint[0], 2) + Math.pow(addresses[i].coords.y - targetPoint[1], 2));
+          totalDistance += distance;
+        }
+        const averageDistance = Math.round((totalDistance / addresses.length)*100000);
+        return averageDistance;
+    } 
 
     return ( 
         <Container style={{marginBottom: 300}}>
@@ -110,7 +121,7 @@ const Registration = () => {
                                         <Button
                                         options={{ selectOnClick: false, maxWidth: 800 }}
                                         onClick={() => setAddCircle(false)}
-                                        data={{ content: `Центр круга: ${center.join(', ')}` }}/>
+                                        data={{ content: `Центр круга: ${center.join(', ')} | Среднее общее расстояние: ${calculateDistance(center)} м.` }}/>
 
                                         <Circle
                                             options={{
@@ -139,7 +150,8 @@ const Registration = () => {
                             }}
                             properties={{
                                 balloonContentHeader: 'LevelUp',
-                                balloonContentBody: 'Володарского 56',
+                                balloonContentBody: `Адрес:<b>Володарского 56</b> <br>
+                                Среднее общее расстояние до офиса: <b>${calculateDistance([57.150417, 65.548863])} м.</b>`,
                             }}  
                             />
                             {
