@@ -5,7 +5,7 @@ import { CloseButton, Dropdown, FormControl, Button} from "react-bootstrap";
 import ChooseAddress from "../../modals/ChooseAddress";
 
 
-const StudentRow = ({position = [], student, students, setStudents}) => {
+const StudentRow = ({position = [], student, students, setStudents, YMaps}) => {
     const [sotrBirth, setSotrBirth] = useState(format(new Date(student.birth_date), 'yyyy-MM-dd'));
     const [sotrFio, setSotrFio] = useState(student.fio);
     const [sotrObraz, setSotrObraz] = useState(student.obrazovanie);
@@ -92,7 +92,7 @@ const StudentRow = ({position = [], student, students, setStudents}) => {
                             return(uslovie &&
                                 (<td key={address.user_id}>
                                     <textarea onClick={() => setAddressVisible(true)} readOnly className="form-control" rows="1" value={address.address}/>
-                                    <ChooseAddress address={address} show={addressVisible} onHide={() => setAddressVisible(false)}/>
+                                    <ChooseAddress YMaps={YMaps} address={address} show={addressVisible} onHide={() => setAddressVisible(false)}/>
                                 </td>)
                             )
                         })

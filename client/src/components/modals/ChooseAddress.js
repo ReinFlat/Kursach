@@ -1,10 +1,10 @@
-import { Map, Placemark, SearchControl, YMaps } from "@pbe/react-yandex-maps";
+import { Map, Placemark, SearchControl} from "@pbe/react-yandex-maps";
 import { observer } from "mobx-react-lite";
 import { useEffect, useRef, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { updateAddresses } from "../../http/adminAPI";
 
-const ChooseAddress = observer(({show, onHide, address}) => {
+const ChooseAddress = observer(({YMaps, show, onHide, address}) => {
 
     const [ addressName, setAddressName ] = useState(address.address)
     const [coords, setCoords] = useState([address.coords.x, address.coords.y]);
@@ -54,10 +54,7 @@ const ChooseAddress = observer(({show, onHide, address}) => {
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <YMaps query={{
-                apikey: '3a1a2903-1e56-44e6-8754-b628cb64d32a',
-                ns: "ymaps",
-                }}>
+            <YMaps>
                 <Map 
                 width={465} height={650} 
                 defaultState={{ center: [57.150417, 65.548863], zoom: 12 }}

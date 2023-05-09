@@ -3,7 +3,7 @@ import { Card, CloseButton, Table, Button, InputGroup, Spinner } from "react-boo
 import { getPosition, getStudents, removeCompany, updateCompany} from "../../../http/adminAPI";
 import StudentRow from "./StudentRow";
 
-const AdminTable = ({company, setCompanys, companys}) => {
+const AdminTable = ({YMaps, company, setCompanys, companys}) => {
     const [students, setStudents] = useState([]);
     const [compName, setCompName] = useState(company.company_name);
     const [compTel, setCompTel] = useState(company.telephone);
@@ -84,7 +84,8 @@ const AdminTable = ({company, setCompanys, companys}) => {
                                 student={student}
                                 students={students} 
                                 setStudents={setStudents}
-                                key={student.user_id} 
+                                key={student.user_id}
+                                YMaps={YMaps} 
                             />)
                         )
                     })  

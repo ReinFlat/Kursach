@@ -59,7 +59,6 @@ const Registration = () => {
     useEffect(()=> {
         getAddresses().then((data) => {
             setAddresses(data);
-            console.log(data)
         })
     }, []);
 
@@ -75,6 +74,11 @@ const Registration = () => {
 
     return ( 
         <Container style={{marginBottom: 300}}>
+        <YMaps
+            query={{
+                apikey: '3a1a2903-1e56-44e6-8754-b628cb64d32a',
+                ns: "ymaps"
+                }}>
             <ButtonGroup>
                 <Button variant={"outline-dark"} className="mt-2" onClick={() => setCompanyVisible(true)}>
                     Добавить компанию
@@ -87,12 +91,8 @@ const Registration = () => {
             </ButtonGroup>
             {
                 companys.map((company, i) => 
-                <AdminTable key={i} setCompanys={setCompanys} companys={companys} company={company}/>)
+                <AdminTable YMaps={YMaps} key={i} setCompanys={setCompanys} companys={companys} company={company}/>)
             }
-            <YMaps
-            query={{
-                apikey: '3a1a2903-1e56-44e6-8754-b628cb64d32a',
-                ns: "ymaps"}}>
                 <Card border="dark" className="mt-3">
                     <Row style={{marginTop:25, marginBottom:25}}>
                         <Col xs={3}>
@@ -107,7 +107,7 @@ const Registration = () => {
                         <Col>
                             <Container style={{ width:800, height:680}}>
                             <Map 
-                            modules={["multiRouter.MultiRoute"]}
+                            modules={["multiRouter.MultiRoute", "geocode", "geolocation"]}
                             instanceRef={map}
                             width={800} height={650} 
                             defaultState={{ center: [57.150417, 65.548863], zoom: 12 }}
