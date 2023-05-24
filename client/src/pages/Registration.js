@@ -87,7 +87,7 @@ const Registration = () => {
                     Добавить студента
                 </Button>
                 <CreateCompany show={companyVisible} onHide={() => setCompanyVisible(false)}/>
-                <CreateStudent show={studentVisible} onHide={() => setStudentVisible(false)}/>
+                <CreateStudent YMaps={YMaps} show={studentVisible} onHide={() => setStudentVisible(false)}/>
             </ButtonGroup>
             {
                 companys.map((company, i) => 

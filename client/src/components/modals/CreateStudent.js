@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { Button, Col, Dropdown, Form, FormControl, InputGroup, Modal, Row } from "react-bootstrap";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { createDepartment, createPosition, createStudent, getCompany, getDepartment, getEmails, getIds, getPosition} from "../../http/adminAPI";
-import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
+import { Map, Placemark} from "@pbe/react-yandex-maps";
 
-const CreateStudent = observer(({show, onHide}) => {
+const CreateStudent = observer(({YMaps, show, onHide}) => {
     const [date, setDate] = useState();
     const [showAddPosition, setShowAddPosition] = useState(false);
     const [showAddDepartment, setShowAddDepartment] = useState(false);
@@ -230,10 +230,7 @@ const CreateStudent = observer(({show, onHide}) => {
                         </Col>
                         <Col>
                                 <textarea style={{height: 30}} className="form-control" readOnly value={addressName}/>
-                                <YMaps query={{
-                                apikey: '3a1a2903-1e56-44e6-8754-b628cb64d32a',
-                                ns: "ymaps",
-                                }}>
+                                <YMaps>
                                     <Map 
                                     defaultState={{ center: [57.150417, 65.548863], zoom: 10 }} height={100} width={214}
                                     modules= {["geocode"]}
