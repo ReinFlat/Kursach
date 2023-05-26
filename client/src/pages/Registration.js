@@ -25,8 +25,8 @@ const Registration = () => {
     };
     
     const addRoute = () => {
-        const pointA = placeCoord; // Москва
-        const pointB = [57.150417, 65.548863]; // Санкт-Петербург
+        const pointA = placeCoord; // Дом студента
+        const pointB = [57.150417, 65.548863]; // Офис
     
         const multiRoute = new window.ymaps.multiRouter.MultiRoute(
           {
@@ -80,12 +80,12 @@ const Registration = () => {
                 ns: "ymaps"
                 }}>
             <ButtonGroup>
-                <Button variant={"outline-dark"} className="mt-2" onClick={() => setCompanyVisible(true)}>
+                <button style={{paddingBlock: 3, borderWidth: 1, borderTopLeftRadius: 10, borderBottomLeftRadius: 10}} className="mt-2" onClick={() => setCompanyVisible(true)}>
                     Добавить компанию
-                </Button>
-                <Button variant={"outline-dark"} className="mt-2" onClick={() => setStudentVisible(true)}>
+                </button>
+                <button style={{paddingBlock: 3, borderWidth: 1, borderTopRightRadius: 10, borderBottomRightRadius: 10}} className="mt-2" onClick={() => setStudentVisible(true)}>
                     Добавить студента
-                </Button>
+                </button>
                 <CreateCompany show={companyVisible} onHide={() => setCompanyVisible(false)}/>
                 <CreateStudent YMaps={YMaps} show={studentVisible} onHide={() => setStudentVisible(false)}/>
             </ButtonGroup>
